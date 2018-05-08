@@ -323,8 +323,10 @@ public class Driver {
 
 			if (TotExeCount == totalUCount) {
 				// Result.DisplayHTMLReport();
+				
 				Browser.OpenBrowser(browser.get(), masterrephtml.get());
 				killexeTask();
+				
 			}
 
 		} catch (Exception e) {
@@ -391,7 +393,7 @@ public class Driver {
 
 	public static void killexeTask() {
 		try {
-			Runtime.getRuntime().exec("taskkill /im chrome.exe /f");
+			//Runtime.getRuntime().exec("taskkill /im chrome.exe /f");
 			Runtime.getRuntime().exec("taskkill /im chromedriver.exe /f");
 			//Runtime.getRuntime().exec("taskkill /im conhost.exe /f");
 			Runtime.getRuntime().exec("taskkill /im geckodriver.exe /f");
