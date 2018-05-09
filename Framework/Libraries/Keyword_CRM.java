@@ -1092,6 +1092,12 @@ public class Keyword_CRM extends Driver {
 				Row_Count = Browser.WebTable.getRowCount("Line_Items");
 
 				if (Category.contains("STAR")) {
+					String StarNoApproval = "";
+					if (!(getdata("Spendlimit").equals(""))) {
+						StarNoApproval = getdata("Spendlimit");
+					} else {
+						StarNoApproval = "Approved by Marketing Director";
+					}
 
 					for (int i = 2; i <= Row_Count; i++) {
 						String LData = Browser.WebTable.getCellData("Line_Items", i, Col);
@@ -1106,7 +1112,7 @@ public class Keyword_CRM extends Driver {
 					CO.scroll("Star_Number_purch", "WebEdit");
 					CO.waitforload();
 					CO.Text_Select("option", "Default");
-					CO.Text_Select("option", "For Testing Only");
+					CO.Text_Select("option", StarNoApproval);
 					CO.waitforload();
 					CO.scroll("Star_Number_purch", "WebEdit");
 					Browser.WebEdit.Set("Star_Number_purch", StarNumber);
@@ -1222,7 +1228,7 @@ public class Keyword_CRM extends Driver {
 	public String OrderSubmission() {
 		String Test_OutPut = "", Status = "";
 		int COL_FUL_STATUS = 0;
-		String OS_Status = "", CreditLimit;
+		String OS_Status = "", CreditLimit = "";
 		Result.fUpdateLog("------Order Submission Event Details------");
 		try {
 			int Complete_Status = 0, Wait = 0, Row = 2, Col, Bill_Col, Row_Count;
@@ -1236,16 +1242,11 @@ public class Keyword_CRM extends Driver {
 			if (Browser.WebTable.exist("Line_Items"))
 				Result.fUpdateLog("Proceeding Order Submission");
 			CO.waitforload();
-			if (UseCaseName.get().toLowerCase().contains("enterpriseprepaid")
-					|| UseCaseName.get().toLowerCase().contains("enterprisepostpaid")
-					|| UseCaseName.get().toLowerCase().contains("enterprisefixedline")
-					|| TestCaseN.get().toLowerCase().contains("vip") || UseCaseName.get().contains("SIPT")
-					|| UseCaseName.get().contains("DAPN")) {
-				if (!(getdata("Ent_CreditLimit").equals(""))) {
-					CreditLimit = getdata("Ent_CreditLimit");
-				} else {
-					CreditLimit = pulldata("Ent_CreditLimit");
-				}
+
+			if (!(getdata("Ent_CreditLimit").equals(""))) {
+				CreditLimit = getdata("Ent_CreditLimit");
+			}
+			if (CreditLimit != "") {
 				CO.scroll("Ent_CreditLimit", "WebEdit");
 				Browser.WebEdit.click("Ent_CreditLimit");
 				Browser.WebEdit.Set("Ent_CreditLimit", CreditLimit);
