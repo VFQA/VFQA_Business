@@ -1077,11 +1077,12 @@ public class Common extends Driver {
 			else
 				Continue.set(false);
 			// to be commented for QA6
-			/*
-			 * if (Browser.WebLink.exist("Acc_Portal")) {
-			 * 
-			 * waitforload(); Browser.WebLink.click("Acc_Portal"); }
-			 */
+
+			if (Browser.WebLink.exist("Acc_Portal")) {
+				waitforload();
+				Browser.WebLink.click("Acc_Portal");
+			}
+
 			Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
 			Result.fUpdateLog("Installed Assert");
 
@@ -1783,7 +1784,11 @@ public class Common extends Driver {
 		} else
 			Continue.set(false);
 		waitforload();
+		waitforload();
+		scroll("MobileServiceBundle", "WebLink");
+		waitforload();
 		cDriver.get().findElement(By.xpath("//div[@class='cxThread']//a[text()='" + GetData + "']")).click();
+		waitforload();
 		waitforload();
 	}
 

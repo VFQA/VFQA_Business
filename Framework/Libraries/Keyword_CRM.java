@@ -1059,6 +1059,7 @@ public class Keyword_CRM extends Driver {
 				if (StarNumber == null) {
 					StarNumber = Browser.WebTable.getCellData("Numbers", Row, Col_pri);
 					StarNumber = StarNumber.substring(2, StarNumber.length());
+					StarNumber = StarNumber.replaceAll(",", "");
 				}
 				Result.takescreenshot("proceeding for Number Reservation");
 
@@ -1097,12 +1098,12 @@ public class Keyword_CRM extends Driver {
 					CO.Link_Select("Others");
 					CO.scroll("Star_Number_purch", "WebEdit");
 					CO.waitforload();
-					CO.Text_Select("option", "Default");
-					CO.Text_Select("option", StarNoApproval);
-					CO.waitforload();
 					CO.scroll("Star_Number_purch", "WebEdit");
 					Browser.WebEdit.Set("Star_Number_purch", StarNumber);
-
+					CO.waitforload();
+					CO.Text_Select("option", "Default");
+					CO.Text_Select("option", StarNoApproval);
+					
 					CO.waitforload();
 					CO.Text_Select("button", "Verify");
 					CO.isAlertExist();
