@@ -176,8 +176,8 @@ public class Keyword_CRM extends Driver {
 				} else {
 					IDType = pulldata("ID_Type");
 				}
-				CO.scroll("ID_Type", "WebEdit");
-				Browser.WebEdit.SetE("ID_Type", IDType);
+				CO.scroll("ID_Type", "ListBox");
+				Browser.ListBox.select("ID_Type", IDType);
 
 				CO.waitforload();
 
@@ -216,11 +216,11 @@ public class Keyword_CRM extends Driver {
 						Last_Name = pulldata("LastName") + R.nextInt(1000);
 					}
 
-					contact.set(Last_Name);
-					CO.scroll("LastName", "WebEdit");
-					Browser.WebEdit.Set("LastName", Last_Name);
-					Result.fUpdateLog("LastName : " + Last_Name);
-					contact.set(Last_Name);
+					/*
+					 * contact.set(Last_Name); CO.scroll("LastName", "WebEdit");
+					 * Browser.WebEdit.Set("LastName", Last_Name); Result.fUpdateLog("LastName : " +
+					 * Last_Name); contact.set(Last_Name);
+					 */
 					CO.scroll("ID_Number", "WebEdit");
 
 					Browser.WebEdit.Set("ID_Number", IDNumber);
@@ -590,6 +590,7 @@ public class Keyword_CRM extends Driver {
 			String Exi = getdata("Account_No");
 			if (!Exi.equals("")) {
 				CO.Account_Search(Exi);
+				CO.Moi_Validation();
 				Utlities.StoreValue("Account_No", Exi);
 				Test_OutPut += "Account_No : " + Exi + ",";
 				CO.waitforload();
@@ -1083,7 +1084,8 @@ public class Keyword_CRM extends Driver {
 					if (!(getdata("Spendlimit").equals(""))) {
 						StarNoApproval = getdata("Spendlimit");
 					} else {
-						StarNoApproval = "Approved by Marketing Director";
+						// StarNoApproval = "Approved by Marketing Director";
+						StarNoApproval = "For Testing Only";
 					}
 
 					for (int i = 2; i <= Row_Count; i++) {
@@ -1103,7 +1105,7 @@ public class Keyword_CRM extends Driver {
 					CO.waitforload();
 					CO.Text_Select("option", "Default");
 					CO.Text_Select("option", StarNoApproval);
-					
+
 					CO.waitforload();
 					CO.Text_Select("button", "Verify");
 					CO.isAlertExist();
@@ -1856,6 +1858,7 @@ public class Keyword_CRM extends Driver {
 				Remove_Addon = pulldata("Remove_Addon");
 			}
 			CO.Assert_Search(MSISDN, "Active");
+			CO.Moi_Validation();
 			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitforload();
@@ -1988,6 +1991,7 @@ public class Keyword_CRM extends Driver {
 				GetData = pulldata("GetData");
 			}
 			CO.Assert_Search(MSISDN, "Active");
+			CO.Moi_Validation();
 			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitforload();
@@ -2760,6 +2764,8 @@ public class Keyword_CRM extends Driver {
 			}
 			CO.AssertSearch(MSISDN, "Active");
 			CO.waitforload();
+			CO.Moi_Validation();
+			CO.waitforload();
 
 			BillingProfileCreation();
 			CO.waitforload();
@@ -2956,6 +2962,8 @@ public class Keyword_CRM extends Driver {
 			}
 
 			CO.AssertSearch(MSISDN, "Active");
+			CO.waitforload();
+			CO.Moi_Validation();
 			CO.waitforload();
 			BillingProfileCreation();
 			CO.waitforload();
@@ -4011,6 +4019,7 @@ public class Keyword_CRM extends Driver {
 			}
 
 			CO.Assert_Search(MSISDN, "Active");
+			CO.Moi_Validation();
 			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitmoreforload();
@@ -4267,6 +4276,7 @@ public class Keyword_CRM extends Driver {
 						Account_No = pulldata("Ext_AccountNo");
 					}
 					TOS_BillingProfileCreation(Account_No, Pymt_Type, Payment_Method);
+					CO.Moi_Validation();
 				}
 				Test_OutPut += "Account_No : " + Account_No + ",";
 
@@ -4604,6 +4614,7 @@ public class Keyword_CRM extends Driver {
 				Resume_Date = getdata("ResumeDate");
 			}
 			CO.Assert_Search(MSISDN, "Active");
+			CO.Moi_Validation();
 			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitforload();
@@ -4732,6 +4743,7 @@ public class Keyword_CRM extends Driver {
 				GetData = pulldata("GetData");
 			}
 			CO.Assert_Search(MSISDN, "Suspended");
+			CO.Moi_Validation();
 			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitforload();
@@ -5077,7 +5089,7 @@ public class Keyword_CRM extends Driver {
 					TOS_BillingProfileCreation(Account_No, PT[k], PM[k]);
 					Bill_NO[k] = Billprofile_No.get();
 				}
-
+				CO.Moi_Validation();
 			}
 			Test_OutPut += "Account_No : " + Account_No + ",";
 			for (k = 0; k < MSD.length; k++) {
@@ -5379,6 +5391,7 @@ public class Keyword_CRM extends Driver {
 					TOS_BillingProfileCreation(Account_No, PT[k], PM[k]);
 					Bill_NO[k] = Billprofile_No.get();
 				}
+				CO.Moi_Validation();
 
 			}
 			Test_OutPut += "Account_No : " + Account_No + ",";
@@ -5699,6 +5712,7 @@ public class Keyword_CRM extends Driver {
 					TOS_BillingProfileCreation(Account_No, PT[k], PM[k]);
 					Bill_NO[k] = Billprofile_No.get();
 				}
+				CO.Moi_Validation();
 
 			}
 			Test_OutPut += "Account_No : " + Account_No + ",";
@@ -6035,6 +6049,7 @@ public class Keyword_CRM extends Driver {
 					Bill_NO[k] = Billprofile_No.get();
 				}
 
+				CO.Moi_Validation();
 			}
 			Test_OutPut += "Account_No : " + Account_No + ",";
 			for (k = 0; k < MSD.length; k++) {
@@ -7366,6 +7381,8 @@ public class Keyword_CRM extends Driver {
 
 			CO.Assert_Search(MSISDN, "Active");
 			CO.waitforload();
+			CO.Moi_Validation();
+			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitforload();
 
@@ -7474,6 +7491,8 @@ public class Keyword_CRM extends Driver {
 			}
 
 			CO.Assert_Search(MSISDN, "Active");
+			CO.waitforload();
+			CO.Moi_Validation();
 			CO.waitforload();
 			CO.Text_Select("a", GetData);
 			CO.waitforload();

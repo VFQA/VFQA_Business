@@ -514,8 +514,8 @@ public class Common extends Driver {
 
 				// Comment for QA6
 				if (Browser.WebLink.exist("Acc_Portal")) {
-
 					Browser.WebLink.click("Acc_Portal");
+					waitforload();
 				}
 				Result.fUpdateLog("Account Search is done Successfully ");
 			} else
@@ -565,10 +565,13 @@ public class Common extends Driver {
 			else
 				Continue.set(false);
 			// Comment for QA6
-			/*
-			 * if (Browser.WebLink.exist("Acc_Portal")) { waitforload();
-			 * Browser.WebLink.click("Acc_Portal"); }
-			 */
+
+			if (Browser.WebLink.exist("Acc_Portal")) {
+				waitforload();
+				Browser.WebLink.click("Acc_Portal");
+				waitforload();
+			}
+
 			Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
 			Result.takescreenshot("");
 
@@ -581,6 +584,33 @@ public class Common extends Driver {
 
 			Result.takescreenshot("");
 			waitforload();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
+		}
+	}
+
+	/*---------------------------------------------------------------------------------------------------------
+	 * Method Name			: Moi_Validation
+	 * Use 					: Customizing the specific Plan is done
+	 * Designed By			: SravaniReddy
+	 * Last Modified Date 	: 15-May-2018
+	--------------------------------------------------------------------------------------------------------*/
+	public void Moi_Validation() {
+		try {
+
+			waitforload();
+			TabNavigator("Contacts");
+			if (Browser.WebButton.exist("Cont_MoiValidation")) {
+				Browser.WebButton.click("Cont_MoiValidation");
+				Result.takescreenshot("");
+				waitforload();
+			}
+			do {
+				TabNavigator("Account Summary");
+				waitforload();
+			} while (!Browser.WebEdit.waitTillEnabled("Acc_validation_Name"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -888,10 +918,12 @@ public class Common extends Driver {
 			else
 				Continue.set(false);
 			// To be commented for QA6
-			/*
-			 * if (Browser.WebLink.exist("Acc_Portal")) { waitforload();
-			 * Browser.WebLink.click("Acc_Portal"); }
-			 */
+
+			if (Browser.WebLink.exist("Acc_Portal")) {
+				waitforload();
+				Browser.WebLink.click("Acc_Portal");
+				waitforload();
+			}
 
 			Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
 			InstalledAssertChange("New Query                   [Alt+Q]");
@@ -914,8 +946,16 @@ public class Common extends Driver {
 				Browser.WebButton.waittillvisible("Expand");
 				Browser.WebButton.click("Expand");
 			}
+			if (Browser.WebButton.exist("Acc_Installed_Show")) {
+				Browser.WebButton.click("Acc_Installed_Show");
+				waitforload();
+				Result.takescreenshot("");
 
-			Result.takescreenshot("");
+				Browser.WebButton.click("Acc_Installed_Less");
+
+			} else {
+				Result.takescreenshot("");
+			}
 
 			int Col1 = Select_Cell("Installed_Assert", "Billing Profile");
 			String BP = Browser.WebTable.getCellData("Installed_Assert", 2, Col1);
@@ -1081,6 +1121,7 @@ public class Common extends Driver {
 			if (Browser.WebLink.exist("Acc_Portal")) {
 				waitforload();
 				Browser.WebLink.click("Acc_Portal");
+				waitforload();
 			}
 
 			Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
@@ -1784,8 +1825,6 @@ public class Common extends Driver {
 		} else
 			Continue.set(false);
 		waitforload();
-		waitforload();
-		scroll("MobileServiceBundle", "WebLink");
 		waitforload();
 		cDriver.get().findElement(By.xpath("//div[@class='cxThread']//a[text()='" + GetData + "']")).click();
 		waitforload();
