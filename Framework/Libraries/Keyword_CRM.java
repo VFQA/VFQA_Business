@@ -1084,8 +1084,8 @@ public class Keyword_CRM extends Driver {
 					if (!(getdata("Spendlimit").equals(""))) {
 						StarNoApproval = getdata("Spendlimit");
 					} else {
-						// StarNoApproval = "Approved by Marketing Director";
-						StarNoApproval = "For Testing Only";
+						StarNoApproval = "Approved by Marketing Director";
+						//StarNoApproval = "For Testing Only";
 					}
 
 					for (int i = 2; i <= Row_Count; i++) {
@@ -1104,6 +1104,7 @@ public class Keyword_CRM extends Driver {
 					Browser.WebEdit.Set("Star_Number_purch", StarNumber);
 					CO.waitforload();
 					CO.Text_Select("option", "Default");
+					CO.waitforload();
 					CO.Text_Select("option", StarNoApproval);
 
 					CO.waitforload();
@@ -2643,6 +2644,7 @@ public class Keyword_CRM extends Driver {
 					CO.scroll("Star_Number_purch", "WebEdit");
 					CO.waitforload();
 					CO.Text_Select("option", "Default");
+					CO.waitforload();
 					CO.Text_Select("option", "For Testing Only");
 					CO.waitforload();
 					CO.scroll("Star_Number_purch", "WebEdit");
