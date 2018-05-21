@@ -344,10 +344,6 @@ public class Keyword_CRM extends Driver {
 
 					CO.scroll("Add_OK", "WebButton");
 					Browser.WebButton.click("Add_OK");
-					/*
-					 * do { Result.fUpdateLog("Page Loading....."); } while
-					 * (Browser.WebButton.waitTillEnabled("Add_OK"));
-					 */
 
 					Method.waitForPageToLoad(cDriver.get(), 10);
 					Browser.WebButton.waittillvisible("Create_A/c");
@@ -2003,14 +1999,19 @@ public class Keyword_CRM extends Driver {
 				j++;
 				Result.fUpdateLog("PopupQuery_Search Page Loading.....");
 				CO.waitforload();
-				Result.fUpdateLog("Account Summary Page Loading.....");
 				if (Browser.WebEdit.waitTillEnabled("PopupQuery_Search")) {
+					Browser.WebButton.click("Promotion_Query");
+					CO.waitforload();
 					a = false;
-				} else if (j < 20) {
+				} else if (j > 20) {
 					a = false;
 				}
 			} while (a);
-			Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			Browser.WebEdit.Set("Promotion_name", New_PlanName);
+			CO.waitforload();
+			Browser.WebButton.click("Promotion_Go");
+			CO.waitforload();
+			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
 			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
@@ -2026,7 +2027,7 @@ public class Keyword_CRM extends Driver {
 					Result.fUpdateLog("LI_New Page Loading.....");
 					if (Browser.WebButton.waitTillEnabled("LI_New")) {
 						a = false;
-					} else if (i < 20) {
+					} else if (i > 20) {
 						a = false;
 					}
 				} while (a);
@@ -2212,13 +2213,29 @@ public class Keyword_CRM extends Driver {
 			CO.scroll("UpgradePromotion", "WebButton");
 			CO.waitforload();
 			Browser.WebButton.click("UpgradePromotion");
-
+			int j = 1;
+			boolean a = true;
+			do {
+				j++;
+				Result.fUpdateLog("PopupQuery_Search Page Loading.....");
+				CO.waitforload();
+				if (Browser.WebEdit.waitTillEnabled("PopupQuery_Search")) {
+					Browser.WebButton.click("Promotion_Query");
+					CO.waitforload();
+					a = false;
+				} else if (j > 20) {
+					a = false;
+				}
+			} while (a);
+			Browser.WebEdit.Set("Promotion_name", New_PlanName);
 			CO.waitforload();
-			Browser.WebEdit.waittillvisible("PopupQuery_Search");
+			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
-			Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			
+			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
 			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
+			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
 			CO.waitforload();
 
 			if (Browser.WebTable.getRowCount("Promotion_Upgrades") >= 2) {
@@ -2226,6 +2243,17 @@ public class Keyword_CRM extends Driver {
 				Result.takescreenshot("Promotion Selected");
 				CO.scroll("Upgrade_OK", "WebButton");
 				Browser.WebButton.click("Upgrade_OK");
+				int i = 1;
+				a = true;
+				do {
+					i++;
+					Result.fUpdateLog("LI_New Page Loading.....");
+					if (Browser.WebButton.waitTillEnabled("LI_New")) {
+						a = false;
+					} else if (i > 20) {
+						a = false;
+					}
+				} while (a);
 
 			} else {
 				Continue.set(false);
@@ -2780,7 +2808,7 @@ public class Keyword_CRM extends Driver {
 				Result.fUpdateLog("Account Summary Page Loading.....");
 				if (Browser.WebLink.exist("Inst_Assert_ShowMore")) {
 					a = false;
-				} else if (k < 20) {
+				} else if (k > 20) {
 					a = false;
 				}
 			} while (a);
@@ -2801,15 +2829,19 @@ public class Keyword_CRM extends Driver {
 				j++;
 				Result.fUpdateLog("PopupQuery_Search Page Loading.....");
 				CO.waitforload();
-				Result.fUpdateLog("Account Summary Page Loading.....");
 				if (Browser.WebEdit.waitTillEnabled("PopupQuery_Search")) {
+					Browser.WebButton.click("Promotion_Query");
+					CO.waitforload();
 					a = false;
-				} else if (j < 20) {
+				} else if (j > 20) {
 					a = false;
 				}
 			} while (a);
-
-			Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			Browser.WebEdit.Set("Promotion_name", New_PlanName);
+			CO.waitforload();
+			Browser.WebButton.click("Promotion_Go");
+			CO.waitforload();
+			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
 			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("");
@@ -2825,7 +2857,7 @@ public class Keyword_CRM extends Driver {
 					Result.fUpdateLog("LI_New Page Loading.....");
 					if (Browser.WebButton.waitTillEnabled("LI_New")) {
 						a = false;
-					} else if (i < 20) {
+					} else if (i > 20) {
 						a = false;
 					}
 				} while (a);
@@ -2935,7 +2967,7 @@ public class Keyword_CRM extends Driver {
 		String Test_OutPut = "", Status = "";
 		String MSISDN, New_PlanName, GetData, Order_no, Spendlimit = "";
 		int Col, Col_P;
-		Result.fUpdateLog("------Consumer_Migration Event Details------");
+		Result.fUpdateLog("------Enterprise_Migration Event Details------");
 		try {
 
 			if (!(getdata("MSISDN").equals(""))) {
@@ -2978,7 +3010,7 @@ public class Keyword_CRM extends Driver {
 				Result.fUpdateLog("Account Summary Page Loading.....");
 				if (Browser.WebLink.exist("Inst_Assert_ShowMore")) {
 					a = false;
-				} else if (k < 20) {
+				} else if (k > 20) {
 					a = false;
 				}
 			} while (a);
@@ -2999,14 +3031,19 @@ public class Keyword_CRM extends Driver {
 				j++;
 				Result.fUpdateLog("PopupQuery_Search Page Loading.....");
 				CO.waitforload();
-				Result.fUpdateLog("Account Summary Page Loading.....");
 				if (Browser.WebEdit.waitTillEnabled("PopupQuery_Search")) {
+					Browser.WebButton.click("Promotion_Query");
+					CO.waitforload();
 					a = false;
-				} else if (j < 20) {
+				} else if (j > 20) {
 					a = false;
 				}
 			} while (a);
-			Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			Browser.WebEdit.Set("Promotion_name", New_PlanName);
+			CO.waitforload();
+			Browser.WebButton.click("Promotion_Go");
+			CO.waitforload();
+			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
 			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("");
@@ -3022,7 +3059,7 @@ public class Keyword_CRM extends Driver {
 					Result.fUpdateLog("LI_New Page Loading.....");
 					if (Browser.WebButton.waitTillEnabled("LI_New")) {
 						a = false;
-					} else if (i < 20) {
+					} else if (i > 20) {
 						a = false;
 					}
 				} while (a);
