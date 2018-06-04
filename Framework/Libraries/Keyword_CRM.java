@@ -1102,7 +1102,7 @@ public class Keyword_CRM extends Driver {
 					CO.Text_Select("option", "Default");
 					CO.waitforload();
 					CO.Text_Select("option", StarNoApproval);
-
+					Result.takescreenshot("");
 					CO.waitforload();
 					CO.Text_Select("button", "Verify");
 					CO.isAlertExist();
@@ -1309,7 +1309,8 @@ public class Keyword_CRM extends Driver {
 							Browser.Readystate();
 						} catch (Exception e) {
 							Result.fUpdateLog("No Alert Exist");
-							Continue.set(false);
+							//Continue.set(false);
+							Continue.set(true);
 							e.getMessage();
 						}
 						break;
@@ -2009,11 +2010,10 @@ public class Keyword_CRM extends Driver {
 			} while (a);
 			Browser.WebEdit.Set("Promotion_name", New_PlanName);
 			CO.waitforload();
+			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
 			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
-			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
-			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
 			CO.waitforload();
 
@@ -2229,12 +2229,11 @@ public class Keyword_CRM extends Driver {
 			} while (a);
 			Browser.WebEdit.Set("Promotion_name", New_PlanName);
 			CO.waitforload();
+			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
 			
 			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
-			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
-			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
 			CO.waitforload();
 
@@ -2839,11 +2838,10 @@ public class Keyword_CRM extends Driver {
 			} while (a);
 			Browser.WebEdit.Set("Promotion_name", New_PlanName);
 			CO.waitforload();
+			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
 			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
-			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
-			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("");
 			CO.waitforload();
 
@@ -3041,11 +3039,10 @@ public class Keyword_CRM extends Driver {
 			} while (a);
 			Browser.WebEdit.Set("Promotion_name", New_PlanName);
 			CO.waitforload();
+			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
 			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
-			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
-			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("");
 			CO.waitforload();
 
