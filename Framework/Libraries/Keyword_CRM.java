@@ -1190,7 +1190,7 @@ public class Keyword_CRM extends Driver {
 				Browser.WebTable.click("Line_Items", Row_Val, Col_S);
 				CO.waitforload();
 				CO.Webtable_Value("Manual Price Override",getdata("OverrideAmt"));
-				
+				CO.waitforload();
 		}
 		
 			
