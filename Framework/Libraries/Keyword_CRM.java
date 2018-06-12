@@ -1153,6 +1153,48 @@ public class Keyword_CRM extends Driver {
 
 			}
 			// To Provide SIM No
+			
+			if(TestCaseN.get().equalsIgnoreCase("PriceOverride_New")||TestCaseN.get().equalsIgnoreCase("PriceOverride_Ext"))
+			{
+				Browser.WebButton.click("Line_Details");
+			
+				Row_Count = Browser.WebTable.getRowCount("Line_Items");
+				if (Row_Count <= 3) {
+					Browser.WebButton.waittillvisible("Expand");
+					Browser.WebButton.click("Expand");
+				}
+				CO.waitforload();
+				Row_Count = Browser.WebTable.getRowCount("Line_Items");
+				for (int i = 2; i <= Row_Count; i++) {
+					int j;
+					String LData = Browser.WebTable.getCellData("Line_Items", i, Col);
+					if (GetData.equalsIgnoreCase(LData))
+					{
+						for (j = i+1; j <= Row_Count; j++) {
+							LData = Browser.WebTable.getCellData("Line_Items", j, Col);
+							if (PlanName.contains(LData))
+							{
+								Row_Val = j;
+								break;
+							}
+						}
+						if(!(i==j)) {
+							break;
+						}
+						
+						
+					}
+					
+				}
+							
+				Browser.WebTable.click("Line_Items", Row_Val, Col_S);
+				CO.waitforload();
+				CO.Webtable_Value("Manual Price Override",getdata("OverrideAmt"));
+				
+		}
+		
+			
+			
 			Row_Count = Browser.WebTable.getRowCount("Line_Items");
 			if (Row_Count <= 3) {
 				Browser.WebButton.waittillvisible("Expand");
