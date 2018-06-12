@@ -1190,11 +1190,9 @@ public class Keyword_CRM extends Driver {
 				Browser.WebTable.click("Line_Items", Row_Val, Col_S);
 				CO.waitforload();
 				CO.Webtable_Value("Manual Price Override",getdata("OverrideAmt"));
-				CO.waitforload();
+				
 		}
 		
-			
-			
 			Row_Count = Browser.WebTable.getRowCount("Line_Items");
 			if (Row_Count <= 3) {
 				Browser.WebButton.waittillvisible("Expand");
@@ -1334,6 +1332,8 @@ public class Keyword_CRM extends Driver {
 					switch (TestCaseN.get()) {
 					case "NewCustomer":
 					case "ExtCustomer":
+					case "PriceOverride_Ext":
+					case "PriceOverride_New":
 					case "Prepaid_To_Postpaid":
 						try {
 							WebDriverWait wait = new WebDriverWait(cDriver.get(), 140);
