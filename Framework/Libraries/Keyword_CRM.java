@@ -904,8 +904,9 @@ public class Keyword_CRM extends Driver {
 			// CO.waitforload();
 
 			// To use the catalog view comment the below line till '----'
-			CO.scroll("LI_New", "WebButton");
-			Browser.WebButton.click("LI_New");
+			/*
+			 * CO.scroll("LI_New", "WebButton"); Browser.WebButton.click("LI_New");
+			 */
 			int Row = 2, Col;
 			Col = CO.Select_Cell("Line_Items", "Product");
 			Browser.WebTable.SetDataE("Line_Items", Row, Col, "Product", PlanName);
@@ -1081,7 +1082,7 @@ public class Keyword_CRM extends Driver {
 						StarNoApproval = getdata("Spendlimit");
 					} else {
 						StarNoApproval = "Approved by Marketing Director";
-						//StarNoApproval = "For Testing Only";
+						// StarNoApproval = "For Testing Only";
 					}
 
 					for (int i = 2; i <= Row_Count; i++) {
@@ -1153,11 +1154,11 @@ public class Keyword_CRM extends Driver {
 
 			}
 			// To Provide SIM No
-			
-			if(TestCaseN.get().equalsIgnoreCase("PriceOverride_New")||TestCaseN.get().equalsIgnoreCase("PriceOverride_Ext"))
-			{
+
+			if (TestCaseN.get().equalsIgnoreCase("PriceOverride_New")
+					|| TestCaseN.get().equalsIgnoreCase("PriceOverride_Ext")) {
 				Browser.WebButton.click("Line_Details");
-			
+				CO.waitforload();
 				Row_Count = Browser.WebTable.getRowCount("Line_Items");
 				if (Row_Count <= 3) {
 					Browser.WebButton.waittillvisible("Expand");
@@ -1165,34 +1166,32 @@ public class Keyword_CRM extends Driver {
 				}
 				CO.waitforload();
 				Row_Count = Browser.WebTable.getRowCount("Line_Items");
+
 				for (int i = 2; i <= Row_Count; i++) {
 					int j;
 					String LData = Browser.WebTable.getCellData("Line_Items", i, Col);
-					if (GetData.equalsIgnoreCase(LData))
-					{
-						for (j = i+1; j <= Row_Count; j++) {
+					if (GetData.equalsIgnoreCase(LData)) {
+						for (j = i + 1; j <= Row_Count; j++) {
 							LData = Browser.WebTable.getCellData("Line_Items", j, Col);
-							if (PlanName.contains(LData))
-							{
+							if (PlanName.contains(LData)) {
 								Row_Val = j;
 								break;
 							}
 						}
-						if(!(i==j)) {
+						if (!(i == j)) {
 							break;
 						}
-						
-						
+
 					}
-					
+
 				}
-							
+				Col_S = CO.Actual_Cell("Line_Items", "Service Id");
 				Browser.WebTable.click("Line_Items", Row_Val, Col_S);
 				CO.waitforload();
-				CO.Webtable_Value("Manual Price Override",getdata("OverrideAmt"));
-				
-		}
-		
+				CO.Webtable_Value("Manual Price Override", getdata("OverrideAmt"));
+
+			}
+
 			Row_Count = Browser.WebTable.getRowCount("Line_Items");
 			if (Row_Count <= 3) {
 				Browser.WebButton.waittillvisible("Expand");
@@ -1351,7 +1350,7 @@ public class Keyword_CRM extends Driver {
 							Browser.Readystate();
 						} catch (Exception e) {
 							Result.fUpdateLog("No Alert Exist");
-							//Continue.set(false);
+							// Continue.set(false);
 							Continue.set(true);
 							e.getMessage();
 						}
@@ -2055,7 +2054,7 @@ public class Keyword_CRM extends Driver {
 			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
-			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			// Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
 			CO.waitforload();
 
@@ -2274,8 +2273,8 @@ public class Keyword_CRM extends Driver {
 			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
-			
-			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+
+			// Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
 			CO.waitforload();
 
@@ -2883,7 +2882,7 @@ public class Keyword_CRM extends Driver {
 			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
-			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			// Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			Result.takescreenshot("");
 			CO.waitforload();
 
@@ -3084,7 +3083,7 @@ public class Keyword_CRM extends Driver {
 			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			CO.waitforload();
-			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
+			// Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
 			Result.takescreenshot("");
 			CO.waitforload();
 
