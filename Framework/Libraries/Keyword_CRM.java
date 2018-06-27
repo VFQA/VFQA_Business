@@ -1155,9 +1155,9 @@ public class Keyword_CRM extends Driver {
 			}
 			// To Provide SIM No
 
-			if (TestCaseN.get().equalsIgnoreCase("PriceOverride_New")
-					|| TestCaseN.get().equalsIgnoreCase("PriceOverride_Ext")) {
+			if ( getdata("OverrideAmt").equalsIgnoreCase(" ")) {
 				Browser.WebButton.click("Line_Details");
+				Col = CO.Actual_Cell("Line_Items", "Product");
 				CO.waitforload();
 				Row_Count = Browser.WebTable.getRowCount("Line_Items");
 				if (Row_Count <= 3) {
@@ -1197,6 +1197,8 @@ public class Keyword_CRM extends Driver {
 				Browser.WebButton.waittillvisible("Expand");
 				Browser.WebButton.click("Expand");
 			}
+			Col = CO.Actual_Cell("Line_Items", "Product");
+			Col_S=CO.Actual_Cell("Line_Items", "Service Id");
 			CO.waitforload();
 			for (int i = 2; i <= Row_Count; i++) {
 				String LData = Browser.WebTable.getCellData("Line_Items", i, Col);
@@ -10101,4 +10103,57 @@ public class Keyword_CRM extends Driver {
 		return Status + "@@" + Test_OutPut + "<br/>";
 	}
 
+	/*---------------------------------------------------------------------------------------------------------
+	 * Method Name			: AccontSearch_FL
+	 * Arguments			: None
+	 * Use 					: Cancel Open Orders Account level and Order Level
+	 * Designed By			: Vinodhini Raviprasad
+	 * Last Modified Date 	: 10-Apr-2018
+	--------------------------------------------------------------------------------------------------------*/
+	public String AccontSearch_FL() {
+		String Test_OutPut = "", Status = "";
+		String  AccountNo,BillingProfile;// ,GetData
+		int Col_P,Row=2;
+		Result.fUpdateLog("------ Cancel Order - Siebel ---------");
+		try {
+	
+			if (!(getdata("AccountNo").equals(""))) {
+				AccountNo = getdata("AccountNo");
+			} else {
+				AccountNo = pulldata("AccountNo");
+			}
+
+			if (!(getdata("BillingProfile").equals(""))) {
+				BillingProfile = getdata("BillingProfile");
+			} else {
+				BillingProfile = pulldata("BillingProfile");
+			}
+			CO.Account_Search(AccountNo);
+			
+			
+			CO.Link_Select("Profiles");
+			CO.waitforload();
+			Browser.WebButton.click("Profile_Query");
+			Col_P = CO.Select_Cell("Bill_Prof", "Name");
+			//Col = CO.Select_Cell("Bill_Prof", "Status");
+			Browser.WebTable.SetData("Bill_Prof", Row, Col_P, "Name", BillingProfile);
+			CO.waitforload();
+			CO.waitforload();
+			if (!(Browser.WebTable.getRowCount("Bill_Prof") >= 2)) {
+				Continue.set(false);
+			}
+			Billprofile_No.set(BillingProfile);
+			SalesOrder();
+			
+			
+		} catch (Exception e) {
+			Status = "FAIL";
+			Test_OutPut += "Exception occurred" + ",";
+			Result.takescreenshot("Exception occurred");
+			Result.fUpdateLog("Exception occurred *** " + e.getMessage());
+			e.printStackTrace();
+		}
+		Result.fUpdateLog("------Cancel Order - Siebel - Completed------");
+		return Status + "@@" + Test_OutPut + "<br/>";
+	}
 }
