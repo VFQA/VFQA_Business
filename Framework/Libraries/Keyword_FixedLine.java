@@ -117,12 +117,12 @@ public class Keyword_FixedLine extends Driver {
 			}
 
 			if (ReservationToken.equals("")) {
-				CO.scroll("Numbers", "WebLink");
+				/*CO.scroll("Numbers", "WebLink");
 				Browser.WebLink.click("Numbers");
 				CO.waitforload();
 				Row_Count = Browser.WebTable.getRowCount("Numbers");
 				if (Row_Count == 1)
-					Browser.WebButton.click("Number_Query");
+				Browser.WebButton.click("Number_Query");
 				Browser.WebLink.click("Num_Manage");
 				CO.waitforload();
 				Browser.WebButton.waitTillEnabled("Reserve");
@@ -200,7 +200,7 @@ public class Keyword_FixedLine extends Driver {
 						System.exit(0);
 					}
 
-				}
+				}*/
 				CO.waitforload();
 				Row_Count = Browser.WebTable.getRowCount("Line_Items");
 				if (Row_Count <= 3) {
@@ -239,7 +239,7 @@ public class Keyword_FixedLine extends Driver {
 				Browser.WebTable.SetData("Line_Items", Row_Val, Col_S, "Service_Id", MSISDN);
 
 			}
-			if ( getdata("OverrideAmt").equalsIgnoreCase(" ")) {
+			if (!(getdata("OverrideAmt").equals(""))) {
 				Browser.WebButton.click("Line_Details");
 				Col = CO.Actual_Cell("Line_Items", "Product");
 				CO.waitforload();
@@ -309,7 +309,7 @@ public class Keyword_FixedLine extends Driver {
 			CO.Popup_Click("Line_Items", Row_Val, Col_SP);
 			CO.waitforload();
 			Reserve = MSISDN.substring(3, MSISDN.length());
-			CO.Popup_Selection("LI_ServPoint", "Location", "Not*");
+			CO.Popup_Selection("LI_ServPoint", "Service Point", getdata("Service_Point"));
 			Col = CO.Select_Cell("Line_Items", "Product");
 
 			Row_Count = Browser.WebTable.getRowCount("Line_Items");
