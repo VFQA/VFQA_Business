@@ -904,9 +904,9 @@ public class Keyword_CRM extends Driver {
 			// CO.waitforload();
 
 			// To use the catalog view comment the below line till '----'
-			/*
-			 * CO.scroll("LI_New", "WebButton"); Browser.WebButton.click("LI_New");
-			 */
+			
+			 CO.scroll("LI_New", "WebButton"); Browser.WebButton.click("LI_New");
+			 
 			int Row = 2, Col;
 			Col = CO.Select_Cell("Line_Items", "Product");
 			Browser.WebTable.SetDataE("Line_Items", Row, Col, "Product", PlanName);
