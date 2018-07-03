@@ -1371,8 +1371,12 @@ public class Keyword_CRM extends Driver {
 					Msg = "Unwanted Popup exists on Submit ,";
 				}
 			}
-
-			if (Continue.get()) {
+			
+			
+			//----------Comment the Below code for No need to wait till order to complete---------------
+	
+			
+		/*	if (Continue.get()) {
 				Result.takescreenshot("Order Submission is Successful");
 				Col = COL_FUL_STATUS;
 				cDriver.get().navigate().refresh();
@@ -1429,6 +1433,10 @@ public class Keyword_CRM extends Driver {
 					Continue.set(false);
 				}
 			}
+			
+*/			
+			
+			//----------------------------------------------------------------------
 			CO.ToWait();
 			if (Continue.get()) {
 				Result.fUpdateLog("Order Status : " + OS_Status);
