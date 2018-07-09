@@ -904,9 +904,9 @@ public class Keyword_CRM extends Driver {
 			// CO.waitforload();
 
 			// To use the catalog view comment the below line till '----'
-			/*
-			 * CO.scroll("LI_New", "WebButton"); Browser.WebButton.click("LI_New");
-			 */
+			
+			 CO.scroll("LI_New", "WebButton"); Browser.WebButton.click("LI_New");
+			 
 			int Row = 2, Col;
 			Col = CO.Select_Cell("Line_Items", "Product");
 			Browser.WebTable.SetDataE("Line_Items", Row, Col, "Product", PlanName);
@@ -1165,6 +1165,7 @@ public class Keyword_CRM extends Driver {
                     Browser.WebButton.click("Expand");
                 }
                 CO.waitforload();
+                CO.waitforload();
                 Row_Count = Browser.WebTable.getRowCount("Line_Items");
 
                 for (int i = 2; i <= Row_Count; i++) {
@@ -1371,7 +1372,11 @@ public class Keyword_CRM extends Driver {
 					Msg = "Unwanted Popup exists on Submit ,";
 				}
 			}
-
+			
+			
+			//----------Comment the Below code for No need to wait till order to complete---------------
+	
+			
 			if (Continue.get()) {
 				Result.takescreenshot("Order Submission is Successful");
 				Col = COL_FUL_STATUS;
@@ -1429,6 +1434,10 @@ public class Keyword_CRM extends Driver {
 					Continue.set(false);
 				}
 			}
+			
+			
+			
+			//----------------------------------------------------------------------
 			CO.ToWait();
 			if (Continue.get()) {
 				Result.fUpdateLog("Order Status : " + OS_Status);
