@@ -1154,8 +1154,8 @@ public class Keyword_CRM extends Driver {
 
 			}
 			// To Provide SIM No
-
-			if ( getdata("OverrideAmt").equalsIgnoreCase(" ")) {
+			
+			if (!(getdata("OverrideAmt").equals(""))) {
 				Browser.WebButton.click("Line_Details");
 				Col = CO.Actual_Cell("Line_Items", "Product");
 				CO.waitforload();
@@ -1376,7 +1376,7 @@ public class Keyword_CRM extends Driver {
 			//----------Comment the Below code for No need to wait till order to complete---------------
 	
 			
-		/*	if (Continue.get()) {
+			if (Continue.get()) {
 				Result.takescreenshot("Order Submission is Successful");
 				Col = COL_FUL_STATUS;
 				cDriver.get().navigate().refresh();
@@ -1434,7 +1434,7 @@ public class Keyword_CRM extends Driver {
 				}
 			}
 			
-*/			
+			
 			
 			//----------------------------------------------------------------------
 			CO.ToWait();
