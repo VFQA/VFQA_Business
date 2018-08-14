@@ -324,10 +324,8 @@ public class Driver {
 
 			if (TotExeCount == totalUCount) {
 				// Result.DisplayHTMLReport();
-
 				Browser.OpenBrowser(browser.get(), masterrephtml.get());
 				killexeTask();
-
 			}
 
 		} catch (Exception e) {

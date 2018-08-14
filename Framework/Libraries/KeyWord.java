@@ -19,6 +19,7 @@ public class KeyWord {
 	Keyword_PEARL KPL = new Keyword_PEARL();
 	Keyword_DAPN KD = new Keyword_DAPN();
 	Keyword_PJM KJ = new Keyword_PJM();
+	Keyword_MPLS MP = new Keyword_MPLS();
 
 	Dialers KDialers = new Dialers();
 	SetCapabilities KSetCapabilities = new SetCapabilities();
@@ -76,6 +77,10 @@ public class KeyWord {
 
 	public String Modify() {
 		return KC.Modify();
+	}
+
+	public String Account360_Modify() {
+		return KC.Account360_Modify();
 	}
 
 	public String UpgradePromotion() {
@@ -229,10 +234,49 @@ public class KeyWord {
 	public String CancelOrder() {
 		return KC.CancelOrder();
 	}
-	
 
 	public String AccontSearch_FL() {
 		return KC.AccontSearch_FL();
+	}
+
+	public String Seibel_NBO() {
+		return KC.Seibel_NBO();
+	}
+
+	public String Suspension_Account() {
+		return KC.Suspension_Account();
+	}
+
+	public String DropPendingOrder() {
+		return KC.DropPendingOrder();
+	}
+
+	public String getPUK() {
+		return KC.getPUK();
+	}
+
+	public String Adjustments_BillingProfileLevel() {
+		return KC.Adjustments_BillingProfileLevel();
+	}
+
+	public String Adjustments_BillLevel() {
+		return KC.Adjustments_BillLevel();
+	}
+
+	public String Adjustments_ItemLevel() {
+		return KC.Adjustments_ItemLevel();
+	}
+
+	public String SharedBundleProvisioning() {
+		return KC.SharedBundleProvisioning();
+	}
+
+	public String DisconnectSharedBundle() {
+		return KC.DisconnectSharedBundle();
+	}
+
+	public String ReplicateOrder() {
+		return KC.ReplicateOrder();
 	}
 	// ------------------Keyword CRM -------------------//
 
@@ -315,6 +359,10 @@ public class KeyWord {
 	public String PlanSelection_DAPN() {
 		return KD.PlanSelection_DAPN();
 	}
+
+	public String UpgradePromotion_DAPN() {
+		return KD.UpgradePromotion_DAPN();
+	}
 	// ---------------------Keyword_DAPN------------------------//
 
 	// ---------------------Keyword Putty------------------------//
@@ -331,8 +379,16 @@ public class KeyWord {
 		return KP.BillGeneration_AccountLevel();
 	}
 
+	public String BillGeneration_BillingProfile() {
+		return KP.BillGeneration_BillingProfile();
+	}
+
 	public String Invoicegeneration() {
 		return KP.Invoicegeneration();
+	}
+
+	public String Trial_BillRun() {
+		return KP.Trial_BillRun();
 	}
 
 	public String Collections() {
@@ -362,7 +418,22 @@ public class KeyWord {
 		return KF.OrderVerfication();
 	}
 
+	public String HomeMove() {
+		return KF.HomeMove();
+	}
+
+	public String FL_Disconnection() {
+		return KF.FL_Disconnection();
+	}
+
 	// ---------------------Keyword_FixedLine------------------------//
+	// ---------------------Keyword_MPLSL------------------------//
+	public String MPLS() {
+		return MP.MPLS();
+	}
+
+	// ---------------------Keyword_MPLS------------------------//
+
 	// ---------------------Keyword_OSM------------------------//
 
 	public String OSM_Login() {
@@ -522,6 +593,10 @@ public class KeyWord {
 		return KUSSD.VerifyProductActivationPrepaid();
 	}
 
+	public String VerifyProductDeActivationPrepaid() {
+		return KUSSD.VerifyProductDeActivationPrepaid();
+	}
+
 	public String SearchAsset() {
 		return KSiebel.SearchAsset();
 	}
@@ -530,8 +605,8 @@ public class KeyWord {
 		return KSiebel.CheckOrder();
 	}
 
-	public String VerifyProductDeActivationPrepaid() {
-		return KUSSD.VerifyProductDeActivationPrepaid();
+	public String Cookies() {
+		return KSiebel.Cookies();
 	}
 
 	// ---------------------Mobile Usages Ends------------------------//
@@ -551,6 +626,22 @@ public class KeyWord {
 
 	public String billEnquiryMCare() {
 		return MCare.billEnquiryMCare();
+	}
+
+	public String Addon_Activation() {
+		return MCare.Addon_Activation();
+	}
+
+	public String Addon_DeActivation() {
+		return MCare.Addon_DeActivation();
+	}
+
+	public String PostAddon_Activation() {
+		return MCare.PostAddon_Activation();
+	}
+
+	public String PostAddon_Deactivation() {
+		return MCare.PostAddon_Deactivation();
 	}
 
 	// ---------------------MCare Keywords Ends------------------------//

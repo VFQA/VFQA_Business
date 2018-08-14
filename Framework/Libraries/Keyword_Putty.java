@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.util.ArrayList;
@@ -174,7 +175,97 @@ public class Keyword_Putty extends Driver {
 		Result.fUpdateLog("------Bill Generation Event Details - Completed------");
 		return Status + "@@" + Test_OutPut + "<br/>";
 	}
+	public String BillGeneration_BillingProfile() {
+		String Test_OutPut = "", Status = "";
+		Result.fUpdateLog("------Bill Generation Event Details------");
+		String pvt = "", Contant = "", str_Content = "";
+		try {
+			String str_Directory = pulldata("str_Directory");
+			String str_File = pulldata("str_File");
+			String str_FileContent = " ";
 
+			if (!(getdata("AccountNo").equals(""))) {
+				str_Content = getdata("AccountNo");
+			} else if (!(getdata("MultipleAccountNo").equals(""))) {
+				str_Content = getdata("MultipleAccountNo").replace(",", "','");
+			}
+			
+			Contant = KD.AccPoID_BillPoID(str_Content,getdata("BillingProf"));
+			if (Continue.get()) {
+				str_FileContent = ReadFileFromLinux(nsession.get(), str_Directory, str_File);
+				Result.fUpdateLog("Reading the initial File Content: " + str_File + " : " + str_FileContent);
+
+				str_FileContent = WriteFileToLinux(nsession.get(), Contant, str_Directory, str_File);
+				Result.fUpdateLog("Writing into the file: " + str_File + " : " + str_FileContent);
+
+				str_FileContent = ReadFileFromLinux(nsession.get(), str_Directory, str_File);
+				Result.fUpdateLog("Reading the File Content after update: " + str_File + " : " + str_FileContent);
+				Test_OutPut += str_FileContent + ",";
+
+				if (!(getdata("PVT_Date").equals(""))) {
+					// "pvt -m2 010710002018 "
+					pvt = "pvt -m2 " + getdata("PVT_Date");
+				} else {
+					pvt = "pvt -m2 " + pulldata("PVT_Date");
+				}
+
+				List<String> commands = new ArrayList<String>();
+				commands.add("test");
+				commands.add(pvt);
+				commands.add("pvt");
+				commands.add("apps");
+				commands.add("cd pin_billd");
+				commands.add("cat PinBillRunControl.xml");
+				commands.add("pin_bill_accts -file PinBillRunControl.xml -verbose");
+				commands.add("test");
+				commands.add("pvt -m0");
+				commands.add("pvt");
+
+				str_FileContent = Executecmd(nsession.get(), commands, "");
+
+				Date today = new Date();
+				String x = today.toString();
+				x = x.substring(4, 10).replace("01", " 1").replace("02", " 2").replace("03", " 3").replace("04", " 4")
+						.replace("05", " 5").replace("06", " 6").replace("07", " 7").replace("08", " 8")
+						.replace("09", " 9");
+				Result.fUpdateLog(x);
+
+				if (str_FileContent.contains(x)) {
+					Result.fUpdateLog("PVT set as Normal");
+					Test_OutPut += "PVT set as Normal" + ",";
+					Continue.set(true);
+				} else {
+					Result.fUpdateLog("Fail to set PVT Normal");
+					Test_OutPut += "Fail to set PVT Normal" + ",";
+					Continue.set(false);
+				}
+
+				CopytoDoc(str_FileContent);
+
+				if (str_FileContent.contains("logout") && Continue.get()) {
+					Test_OutPut += "Commands Executed Successfully" + ",";
+					// Result.fUpdateLog(str_FileContent);
+					Status = "PASS";
+				} else {
+					Test_OutPut += "Failed to Execute the commands" + ",";
+					// Result.fUpdateLog(str_FileContent);
+					Status = "Fail";
+				}
+			} else {
+				Test_OutPut += "Failed to get Account and bill info PoidID from DB" + ",";
+				// Result.fUpdateLog(str_FileContent);
+				Status = "Fail";
+			}
+		} catch (Exception e) {
+			Continue.set(false);
+			Test_OutPut += "Failed to disconnect session" + ",";
+			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
+			Status = "FAIL";
+			e.printStackTrace();
+		}
+		Result.fUpdateLog("------Bill Generation Event Details - Completed------");
+		return Status + "@@" + Test_OutPut + "<br/>";
+	}
 	public String Invoicegeneration() {
 		String Test_OutPut = "", Status = "";
 		Result.fUpdateLog("------Invoice generation Event Details------");
@@ -242,7 +333,7 @@ public class Keyword_Putty extends Driver {
 						str = xa[a];
 						System.out.println(str);
 						if (str.contains(AccPoID.get(c)) & str.contains(x)) {
-							String str_FileContent3 = xa[a].substring(42, xa[a].length() - 1);
+							String str_FileContent3 = xa[a].substring(41, xa[a].length() - 1);
 							Xml += " " + str_FileContent3;
 						}
 					}
@@ -259,7 +350,7 @@ public class Keyword_Putty extends Driver {
 					int i = xb.length - 5;
 					str = xb[i];
 					System.out.println(xb[i].length());
-					str_FileContent5 = xb[i].substring(42, xb[i].length() - 1);
+					str_FileContent5 = xb[i].substring(41, xb[i].length() - 1);
 					Result.fUpdateLog(str_FileContent5);
 
 					Date today7 = new Date();
@@ -405,20 +496,15 @@ public class Keyword_Putty extends Driver {
 		return Status + "@@" + Test_OutPut + "<br/>";
 	}
 
-	public String Triall_Bill_Run() {
+	public String Trial_BillRun() {
 		String Test_OutPut = "", Status = "";
 		Result.fUpdateLog("------Trial Bill Run Event Details------");
-		String AccountNo = "", Match = "", Contant = "", Bill_Profile, Bill_Cycle, Bill_Lang;// str_Content = "";
+		String AccountNo = "", Match = "", Bill_Profile, NoOfMonths, Bill_Lang;// str_Content = "";
 		try {
-			String str_Directory = pulldata("str_Directory");
-			String str_File = pulldata("str_File");
-			String str_FileContent = " ";
-
-			/*
-			 * if (!(getdata("AccountNo").equals(""))) { str_Content = getdata("AccountNo");
-			 * } else if (!(getdata("MultipleAccountNo").equals(""))) { str_Content =
-			 * getdata("MultipleAccountNo").replace(",", "','"); }
-			 */
+			//String str_Directory = pulldata("str_Directory");
+			//String str_File = pulldata("str_File");
+			String str_FileContent = "";
+			
 			if (!(getdata("AccountNo").equals(""))) {
 				AccountNo = getdata("AccountNo");
 			} else {
@@ -429,21 +515,33 @@ public class Keyword_Putty extends Driver {
 			} else {
 				Bill_Profile = pulldata("Bill_Profile");
 			}
-			if (!(getdata("Bill_Lang").equals(""))) {
-				Bill_Lang = getdata("Bill_Lang");
+			if (!(getdata("Bill_Language").equals(""))) {
+				Bill_Lang = getdata("Bill_Language");
 			} else {
-				Bill_Lang = pulldata("Bill_Lang");
+				Bill_Lang = pulldata("Bill_Language");
 			}
-			if (!(getdata("Bill_Cycle").equals(""))) {
-				Bill_Cycle = getdata("Bill_Cycle");
+			if (!(getdata("NoOfMonths").equals(""))) {
+				NoOfMonths = getdata("NoOfMonths");
 			} else {
-				Bill_Cycle = pulldata("Bill_Cycle");
+				NoOfMonths = pulldata("NoOfMonths");
 			}
 
 			// Account_No
 			// Contant = KD.AccPoID_BillPoID(str_Content);
 			if (Continue.get()) {
-				str_FileContent = ReadFileFromLinux(nsession.get(), str_Directory, str_File);
+				
+				ProcessBuilder pb2=new ProcessBuilder("/brmapp/opt/portal/7.5.0/sys/test/BillRun_Automation_bu.sh");
+				Process script_exec = pb2.start();
+				OutputStream in = script_exec.getOutputStream();
+				in.write("N".getBytes());
+				 in.write(AccountNo.getBytes());
+				 in.write(Bill_Profile.getBytes());
+				 in.write(Bill_Lang.getBytes());
+				 in.write(NoOfMonths.getBytes());
+				 in.write("Y".getBytes());
+				 in.flush();
+				 in.close();
+				/*str_FileContent = ReadFileFromLinux(nsession.get(), str_Directory, str_File);
 				Result.fUpdateLog("Reading the initial File Content: " + str_File + " : " + str_FileContent);
 
 				str_FileContent = WriteFileToLinux(nsession.get(), Contant, str_Directory, str_File);
@@ -451,20 +549,28 @@ public class Keyword_Putty extends Driver {
 
 				str_FileContent = ReadFileFromLinux(nsession.get(), str_Directory, str_File);
 				Result.fUpdateLog("Reading the File Content after update: " + str_File + " : " + str_FileContent);
-				Test_OutPut += str_FileContent + ",";
+				Test_OutPut += str_FileContent + ",";*/
 
 				List<String> commands = new ArrayList<String>();
 				commands.add("test");
 				commands.add("./BillRun_Automation_bu.sh");
-				commands.add("n");
+				commands.add("N");
 				commands.add(AccountNo);
 				commands.add(Bill_Profile);
 				commands.add(Bill_Lang);
-				commands.add(Bill_Cycle);
-				commands.add("y");
+				commands.add(NoOfMonths);
+				commands.add("Y");
 				commands.add("apps");
 				commands.add("cd vfq_exp_XML/vfq_exp_XML-TRIALBILL/invoice_archive");
-
+				commands.add("apps");
+				
+				Date today9 = new Date();
+				String y = today9.toString();
+				y = y.substring(4, 10).replace("01", " 1").replace("02", " 2").replace("03", " 3").replace("04", " 4")
+						.replace("05", " 5").replace("06", " 6").replace("07", " 7").replace("08", " 8")
+						.replace("09", " 9");
+				String v = "ls -lrt|grep '" + y + "'";
+				commands.add(v);
 				str_FileContent = Executecmd(nsession.get(), commands, "");
 				Pattern pattern = Pattern.compile("Trial_\\w+");
 

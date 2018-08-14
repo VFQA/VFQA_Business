@@ -7,25 +7,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 
-public class Keyword_IPLC extends Driver {
+public class Keyword_MPLS extends Driver {
 	Common CO = new Common();
 	Random R = new Random();
 	Keyword_CRM KC = new Keyword_CRM();
 
-	public String IPLC() {
-	String Test_OutPut = "", Status = "";
+	public String MPLS() {
+		String Test_OutPut = "", Status = "";
 		String Network = null;
-		String VPN_Connection1 = null;
-		String VPN_Connection2 = null;
+		String VPN_Access1 = null;
+		String VPN_Access2 = null;
 		String VPN_Node_1 = null;
 		String VPN_Node_2 = null;
-		Result.fUpdateLog("------KEYMORD  IPLC ------");
+		Result.fUpdateLog("------KEYMORD  MPLS ------");
 		try {
 
 		
 			Network = pulldata("Network");
-			VPN_Connection1 = pulldata("VPN Connection 1");
-			VPN_Connection2 = pulldata("VPN Connection 2");
+			VPN_Access1 = pulldata("VPN Access 1");
+			VPN_Access2 = pulldata("VPN Access 2");
 			VPN_Node_1 = pulldata("VPN Node 1");
 			VPN_Node_2 = pulldata("VPN Node2");
 	
@@ -42,7 +42,7 @@ public class Keyword_IPLC extends Driver {
 			Col = CO.Select_Cell("Sub_Account", "Account");
 			Browser.WebTable.click("Sub_Account", Row, Col);
 			CO.waitforload();
-			String ChildAccount1 = "ChildAccount1" + Utlities.randname();
+			String ChildAccount1 = "Child1_Mpls1" + Utlities.randname();
 			cDriver.get().findElement(By.name("Name")).sendKeys(ChildAccount1);
 			CO.waitforload();
 			Result.takescreenshot("");
@@ -58,24 +58,15 @@ public class Keyword_IPLC extends Driver {
 			CO.waitforload();
 
 			// Account Hierarchy
-				
-			CO.TabNavigator("Account Hierarchy");
-			Result.takescreenshot("Childone");
-			Browser.WebButton.click("Account_Org_Search");
-			CO.waitforload();
-			int ColAc = CO.Actual_tab_Cell_th("Account_Org_Hierarchy", "Account");
-			Browser.WebTable.SetDataE("Account_Org", 2,ColAc , "Name", ChildAccount1);
-		//	Browser.WebButton.click("Account_Org_Go");
-			ColAc = CO.Actual_tab_Cell_th("Account_Org_Hierarchy", "Class");
-			Browser.WebTable.SetDataE("Account_Org", 2,ColAc , "Account_Type_Code", "Service");
-			Browser.WebTable.click("Account_Org", 2,ColAc+1);
 
-			
-			//Result.takescreenshot("");
+			//CO.TabNavigator("Account Hierarchy");
+			Result.takescreenshot("");
 			String ParentAccount = Acc_Number.get();
 			CO.Account_Search(ParentAccount);
+			
+
 			CO.waitforload();
-			//Result.takescreenshot("");
+			Result.takescreenshot("");
 			// Sub Account
 
 			CO.TabNavigator("Sub-Accounts");
@@ -85,7 +76,7 @@ public class Keyword_IPLC extends Driver {
 			Browser.WebTable.click("Sub_Account", Row, Col);
 			CO.waitforload();
 
-			String ChildAccount2 = "ChildAccount2" + Utlities.randname();
+			String ChildAccount2 = "Child2_Mpls2" + Utlities.randname();
 			cDriver.get().findElement(By.name("Name")).sendKeys(ChildAccount2);
 			CO.waitforload();
 
@@ -102,15 +93,6 @@ public class Keyword_IPLC extends Driver {
 			// Account Hierarchy
 
 			CO.TabNavigator("Account Hierarchy");
-			Result.takescreenshot("Childtwo");
-			Browser.WebButton.click("Account_Org_Search");
-			ColAc = CO.Actual_tab_Cell_th("Account_Org_Hierarchy", "Account");
-			Browser.WebTable.SetData("Account_Org", 2,ColAc , "Name", ChildAccount2);
-		//	Browser.WebButton.click("Account_Org_Go");
-			ColAc = CO.Actual_tab_Cell_th("Account_Org_Hierarchy", "Class");
-			Browser.WebTable.SetData("Account_Org", 2,ColAc , "Account_Type_Code", "Service");
-			Browser.WebTable.click("Account_Org", 2,ColAc+1);
-
 			Result.takescreenshot("");
 			CO.waitforload();
 			// String
@@ -152,23 +134,23 @@ public class Keyword_IPLC extends Driver {
 			CO.waitforload();
 
 			CO.scroll("LI_New", "WebButton");
-			Result.takescreenshot(" Plan Selection " + VPN_Connection1);
+			Result.takescreenshot(" Plan Selection " + VPN_Access1);
 			Browser.WebButton.click("LI_New");
 			CO.waitforload();
 			int a1 = 3;
 			CO.waitforload();
-			Browser.WebTable.SetDataE("Line_Items", a1, b, "Product", VPN_Connection1);
+			Browser.WebTable.SetDataE("Line_Items", a1, b, "Product", VPN_Access1);
 			Browser.WebTable.click("Line_Items", a1, ColSid);
 			CO.waitforload();
 			CO.waitforload();
 
 			CO.scroll("LI_New", "WebButton");
-			Result.takescreenshot(" Plan Selection " + VPN_Connection2);
+			Result.takescreenshot(" Plan Selection " + VPN_Access2);
 			Browser.WebButton.click("LI_New");
 			CO.waitforload();
 			int a2 = 4;
 			CO.waitforload();
-			Browser.WebTable.SetDataE("Line_Items", a2, b, "Product", VPN_Connection2);
+			Browser.WebTable.SetDataE("Line_Items", a2, b, "Product", VPN_Access2);
 			Browser.WebTable.click("Line_Items", a2, ColSid);
 			CO.waitforload();
 			CO.waitforload();
@@ -197,8 +179,21 @@ public class Keyword_IPLC extends Driver {
 			CO.scroll("LI_New", "WebButton");
 			Result.takescreenshot(" Plan Selection " + VPN_Node_2);
 
-			
-			
+			// Network Customize
+			int a6 = 2, b6;
+			b6 = CO.Select_Cell("Line_Items", "Extended Qty");
+			CO.waitforload();
+			Browser.WebTable.click("Line_Items", a6, b6);
+			CO.waitforload();
+			CO.Text_Select("span", "Customize");
+			CO.waitforload();
+			Result.takescreenshot("");
+			CO.Radio_Select1(getdata("MPLS VPN Network Charges"));
+			CO.waitforload();
+			CO.Text_Select("button", "Verify");
+			CO.isAlertExist();
+			CO.waitforload();
+			CO.Text_Select("button", "Done");
 			CO.waitforload();
 			CO.Text_Select("a", "Network Line Detail");
 			CO.waitforload();
@@ -318,61 +313,70 @@ public class Keyword_IPLC extends Driver {
 			CO.waitforload();
 			Result.takescreenshot("");
 			
-			// Connection1 Customize
+			// Access1 Customize
 	
 			// node 1
 			Col_S = CO.Select_Cell("Line_Items", "Net Price");
 			
-			if (!(getdata("IPLCCharges").equals(""))
-					|| !(getdata("IPLCFeatures").equals(""))
-					|| !(getdata("IPLCSLA").equals(""))
-					||!(getdata("IPLCServices").equals(""))) {
+			if (!(getdata("MPLS VPN Access Features_child1").equals(""))
+					|| !(getdata("MPLS VPN Access Service_child1").equals(""))
+					|| !(getdata("MPLS VPN Access Charges_child1").equals(""))
+					||!(getdata("MPLS SLA_child1").equals(""))
+					|| !(getdata("Performance reporting for IP VPN_child1").equals(""))) {
 				
 
 				Browser.WebTable.click("Line_Items", 3, Col_S);
 				CO.waitforload();
 				CO.Text_Select("span", "Customize");
 				CO.waitforload();
-				if (!(getdata("IPLCFeatures").equals(""))) {
-
-					String Addon =getdata("IPLCFeatures");
-					CO.Text_Select("a","IPLC Features");
-					CO.waitforload();
-					CO.Radio_Select1(Addon);
-					CO.waitforload();
 				
-					
-				}
 
-				if (!(getdata("IPLCCharges").equals(""))) {
+				if (!(getdata("MPLS VPN Access Features_child1").equals(""))) {
 					
 
-					String Addon =getdata("IPLCCharges");
-					CO.Text_Select("a","IPLC Charges");
+					String Addon =getdata("MPLS VPN Access Features_child1");
+					CO.Text_Select("a","MPLS VPN Access Features");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
 									
 					
 				}
-			
-				if (!(getdata("IPLCSLA").equals(""))) {
+				if (!(getdata("MPLS VPN Access Service_child1").equals(""))) {
 
-					String Addon =getdata("IPLCSLA");
-					CO.Text_Select("a","IPLC SLA");
+					String Addon =getdata("MPLS VPN Access Service_child1");
+					CO.Text_Select("a","MPLS VPN Access Service");
+					CO.waitforload();
+					CO.Radio_Select1(Addon);
+					CO.waitforload();
+				
+					
+				}
+				if (!(getdata("MPLS VPN Access Charges_child1").equals(""))) {
+
+					String Addon =getdata("MPLS VPN Access Charges_child1");
+					CO.Text_Select("a","MPLS VPN Access Charges");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
 					CO.waitforload();
 					
 				}
-				if (!(getdata("IPLCServices").equals(""))) {
+				if (!(getdata("MPLS SLA_child1").equals(""))) {
 
-					String Addon =getdata("IPLCServices");
-					CO.Text_Select("a","IPLC Services");
+					String Addon =getdata("MPLS SLA_child1");
+					CO.Text_Select("a","MPLS SLA");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
+					
+				}
+				if (!(getdata("Performance reporting for IP VPN_child1").equals(""))) {
+
+					String Addon =getdata("Performance reporting for IP VPN_child1");
+					CO.Text_Select("a","Performance reporting for IP VPN");
+					CO.waitforload();
+					CO.Radio_Select1(Addon);
 					CO.waitforload();
 					
 				}
@@ -387,63 +391,71 @@ public class Keyword_IPLC extends Driver {
 				CO.waitforload();
 
 			}
-		// Connection2 Customize
+		// Access1 Customize
 			
-		
-
-			if (!(getdata("IPLCCharges").equals(""))
-					|| !(getdata("IPLCFeatures").equals(""))
-					|| !(getdata("IPLCSLA").equals(""))
-					|| !(getdata("IPLCServices").equals(""))) {
+			if (!(getdata("MPLS VPN Access Features_child1").equals(""))
+					|| !(getdata("MPLS VPN Access Service_child1").equals(""))
+					|| !(getdata("MPLS VPN Access Charges_child1").equals(""))
+					||!(getdata("MPLS SLA_child1").equals(""))
+					|| !(getdata("Performance reporting for IP VPN_child1").equals(""))) {
 				
 
 				Browser.WebTable.click("Line_Items", 4, Col_S);
 				CO.waitforload();
 				CO.Text_Select("span", "Customize");
 				CO.waitforload();
-				if (!(getdata("IPLCFeatures").equals(""))) {
-
-					String Addon =getdata("IPLCFeatures");
-					CO.Text_Select("a","IPLC Features");
-					CO.waitforload();
-					CO.Radio_Select1(Addon);
-					CO.waitforload();
 				
-					
-				}
 
-				if (!(getdata("IPLCCharges").equals(""))) {
+				if (!(getdata("MPLS VPN Access Features_child1").equals(""))) {
 					
 
-					String Addon =getdata("IPLCCharges");
-					CO.Text_Select("a","IPLC Charges");
+					String Addon =getdata("MPLS VPN Access Features_child1");
+					CO.Text_Select("a","MPLS VPN Access Features");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
 									
 					
 				}
-			
-				if (!(getdata("IPLCSLA").equals(""))) {
+				if (!(getdata("MPLS VPN Access Service_child1").equals(""))) {
 
-					String Addon =getdata("IPLCSLA");
-					CO.Text_Select("a","IPLC SLA");
+					String Addon =getdata("MPLS VPN Access Service_child1");
+					CO.Text_Select("a","MPLS VPN Access Service");
+					CO.waitforload();
+					CO.Radio_Select1(Addon);
+					CO.waitforload();
+				
+					
+				}
+				if (!(getdata("MPLS VPN Access Charges_child1").equals(""))) {
+
+					String Addon =getdata("MPLS VPN Access Charges_child1");
+					CO.Text_Select("a","MPLS VPN Access Charges");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
 					CO.waitforload();
 					
 				}
-				if (!(getdata("IPLCServices").equals(""))) {
+				if (!(getdata("MPLS SLA_child1").equals(""))) {
 
-					String Addon =getdata("IPLCServices");
-					CO.Text_Select("a","IPLC Services");
+					String Addon =getdata("MPLS SLA_child1");
+					CO.Text_Select("a","MPLS SLA");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
+					
+				}
+				if (!(getdata("Performance reporting for IP VPN_child1").equals(""))) {
+
+					String Addon =getdata("Performance reporting for IP VPN_child1");
+					CO.Text_Select("a","Performance reporting for IP VPN");
+					CO.waitforload();
+					CO.Radio_Select1(Addon);
 					CO.waitforload();
 					
 				}
+				
 				
 				CO.waitforload();
 				CO.Text_Select("button", "Verify");
@@ -455,12 +467,12 @@ public class Keyword_IPLC extends Driver {
 
 			}
 
-
 			
 			// Node 1 Customize
 
-			if (!(getdata("IPLCNodeFeatures").equals(""))
-					|| !(getdata("IPLCNodeCharge").equals(""))) {
+			if (!(getdata("MPLS VPN Node Features_child1").equals(""))
+					|| !(getdata("MPLS VPN Node Service_child1").equals(""))
+					|| !(getdata("MPLS VPN Node Charges_child1").equals(""))) {
 				
 
 				Browser.WebTable.click("Line_Items", 5, Col_S);
@@ -469,9 +481,9 @@ public class Keyword_IPLC extends Driver {
 				CO.waitforload();
 				
 
-				if (!(getdata("IPLCNodeFeatures").equals(""))) {
+				if (!(getdata("MPLS VPN Node Features_child1").equals(""))) {
 
-					String Addon =getdata("IPLCNodeFeatures");
+					String Addon =getdata("MPLS VPN Node Features_child1");
 					CO.Radio_Select1(Addon);
 					CO.scroll("Ecofig_Add", "WebButton");
 					CO.waitforload();
@@ -489,17 +501,27 @@ public class Keyword_IPLC extends Driver {
 					
 					
 				}
-				if (!(getdata("IPLCNodeCharge").equals(""))) {
+				if (!(getdata("MPLS VPN Node Service_child1").equals(""))) {
 
-					String Addon =getdata("IPLCNodeCharge");
-					CO.Text_Select("a","IPLC Node Charges");
+					String Addon =getdata("MPLS VPN Node Service_child1");
+					CO.Text_Select("a","MPLS VPN Node Service");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
 				
 					
 				}
-							
+				if (!(getdata("MPLS VPN Node Charges_child1").equals(""))) {
+
+					String Addon =getdata("MPLS VPN Node Charges_child1");
+					CO.Text_Select("a", "MPLS VPN Node Charges");
+					CO.waitforload();
+					CO.Radio_Select1(Addon);
+					CO.waitforload();
+					
+				}
+				
+				
 				CO.waitforload();
 				CO.Text_Select("button", "Verify");
 				CO.isAlertExist();
@@ -512,21 +534,20 @@ public class Keyword_IPLC extends Driver {
 
 			
 		// Node 2 Customize
-			if (!(getdata("IPLCNodeFeatures").equals(""))
-					|| !(getdata("IPLCNodeCharge").equals(""))) {
+			if (!(getdata("MPLS VPN Node Features_child1").equals(""))
+					|| !(getdata("MPLS VPN Node Service_child1").equals(""))
+					|| !(getdata("MPLS VPN Node Charges_child1").equals(""))) {
 				
-
 
 				Browser.WebTable.click("Line_Items", 6, Col_S);
 				CO.waitforload();
 				CO.Text_Select("span", "Customize");
 				CO.waitforload();
 				
-				
 
-				if (!(getdata("IPLCNodeFeatures").equals(""))) {
+				if (!(getdata("MPLS VPN Node Features_child1").equals(""))) {
 
-					String Addon =getdata("IPLCNodeFeatures");
+					String Addon =getdata("MPLS VPN Node Features_child1");
 					CO.Radio_Select1(Addon);
 					CO.scroll("Ecofig_Add", "WebButton");
 					CO.waitforload();
@@ -544,18 +565,27 @@ public class Keyword_IPLC extends Driver {
 					
 					
 				}
-				if (!(getdata("IPLCNodeCharge").equals(""))) {
+				if (!(getdata("MPLS VPN Node Service_child1").equals(""))) {
 
-					String Addon =getdata("IPLCNodeCharge");
-					CO.Text_Select("a","IPLC Node Charges");
+					String Addon =getdata("MPLS VPN Node Service_child1");
+					CO.Text_Select("a","MPLS VPN Node Service");
 					CO.waitforload();
 					CO.Radio_Select1(Addon);
 					CO.waitforload();
 				
 					
 				}
+				if (!(getdata("MPLS VPN Node Charges_child1").equals(""))) {
+
+					String Addon =getdata("MPLS VPN Node Charges_child1");
+					CO.Text_Select("a", "MPLS VPN Node Charges");
+					CO.waitforload();
+					CO.Radio_Select1(Addon);
+					CO.waitforload();
 					
-								
+				}
+				
+				
 				CO.waitforload();
 				CO.Text_Select("button", "Verify");
 				CO.isAlertExist();
@@ -565,7 +595,6 @@ public class Keyword_IPLC extends Driver {
 				CO.waitforload();
 
 			}
-			
 			CO.Text_Select("a", "Appointments");
 			CO.waitforload();
 			CO.scroll("Validate", "WebButton");
@@ -574,7 +603,9 @@ public class Keyword_IPLC extends Driver {
 			Browser.WebEdit.Set("Enterprise_credit_limit", "1000");
 			Result.takescreenshot("");
 			CO.waitforload();
-
+			String Order_no = CO.Order_ID();
+			Utlities.StoreValue("Order_no", Order_no);
+			Test_OutPut += "Order_no : " + Order_no + ",";
 
 			Test_OutPut += KC.OrderSubmission().split("@@")[1];
 
@@ -983,7 +1014,7 @@ public class Keyword_IPLC extends Driver {
 				} else {
 					Browser.WebTable.SetDataE("Acc_Contact", Row, Col, "VFQ_Nationality", pulldata("Nationality"));
 				}
-				CO.waitforload();
+
 				Col = Col + 4;
 				// Col = CO.Select_Cell("Acc_Contact", "Gender");
 				if (!(getdata("Gender").equals(""))) {
@@ -1213,5 +1244,4 @@ public class Keyword_IPLC extends Driver {
 		Result.fUpdateLog("------Sales Order Event Details - Completed------");
 		return Status + "@@" + Test_OutPut + "<br/>";
 	}
-
 }

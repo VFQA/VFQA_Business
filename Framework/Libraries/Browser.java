@@ -627,6 +627,18 @@ public class Browser extends Driver {
 			}
 		}
 
+		public static void click_che(String objname, int rownum, int columnnum) throws Exception {
+			try {
+				String[] objprop = Utlities.FindObject(objname, "WebTable");
+				String cellXpath = objprop[0] + "//tr[" + rownum + "]/td[" + columnnum + "]/span/input";
+				cDriver.get().findElement(By.xpath(cellXpath)).click();
+				Result.fUpdateLog(Batchs.get() + " :: Action Click on Obj: " + objname);
+			} catch (Exception e) {
+				Result.fUpdateLog(Batchs.get() + " :: Failed at Obj: " + objname + " to click");
+				throw new Exception();
+			}
+		}
+
 		public static void clickA(String objname, int rownum, int columnnum) throws Exception {
 			try {
 				String[] objprop = Utlities.FindObject(objname, "WebTable");
@@ -670,6 +682,21 @@ public class Browser extends Driver {
 
 				String[] objprop = Utlities.FindObject(objname, "WebTable");
 				String cellXpath = objprop[0] + "//tr[1]//td";
+				List<org.openqa.selenium.WebElement> cols = cDriver.get().findElements(By.xpath(cellXpath));
+				int colcount = cols.size();
+				Result.fUpdateLog(Batchs.get() + " :: Action getColCount on Obj: " + objname);
+				return colcount;
+			} catch (Exception e) {
+				Result.fUpdateLog(Batchs.get() + " :: Failed at Obj: " + objname + " to getColCount");
+				throw new Exception();
+			}
+		}
+
+		public static int getColCount1(String objname) throws Exception {
+			try {
+
+				String[] objprop = Utlities.FindObject(objname, "WebTable");
+				String cellXpath = objprop[0] + "//tr[1]//th";
 				List<org.openqa.selenium.WebElement> cols = cDriver.get().findElements(By.xpath(cellXpath));
 				int colcount = cols.size();
 				Result.fUpdateLog(Batchs.get() + " :: Action getColCount on Obj: " + objname);

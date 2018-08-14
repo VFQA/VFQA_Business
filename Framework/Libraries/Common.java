@@ -49,7 +49,7 @@ public class Common extends Driver {
 	 * Last Modified Date 	: 24-Aug-2017
 	--------------------------------------------------------------------------------------------------------*/
 	public void waitforload() {
-		cDriver.get().manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		cDriver.get().manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		Method.waitForPageToLoad(cDriver.get(), 5);
 	}
 
@@ -381,17 +381,22 @@ public class Common extends Driver {
 				if (Length > 1) {
 					Thread.sleep(3000);
 					Link_Select(Prod_array[0]);
+					waitforload();
 					Result.takescreenshot("Add on Tab");
 					if (Status.equals("Delete")) {
 						Result.fUpdateLog("------Modify Remove Addon Event Details------");
 						for (int j = 1; j < Prod_array.length; j++) {
 							String Addon[] = Prod_array[j].split("::");
 							if (Addon.length > 1) {
+								waitforload();
 								Radio_None(Addon[0]);
-								Result.takescreenshot("Deletion of Addon");
+								Result.fUpdateLog("Deletion of Addon : " + Addon[0]);
+								Result.takescreenshot("Deletion of Addon : " + Addon[0]);
 							} else {
+								waitforload();
 								Radio_None(Addon[0]);
-								Result.takescreenshot("Deletion of Addon");
+								Result.fUpdateLog("Deletion of Addon : " + Addon[0]);
+								Result.takescreenshot("Deletion of Addon : " + Addon[0]);
 							}
 						}
 					} else {
@@ -401,14 +406,13 @@ public class Common extends Driver {
 							if (Addon.length > 1) {
 								Radio_Select(Addon[0]);
 								waitforload();
-								waitforload();
-								Result.takescreenshot("Addition of Addon");
+								Result.fUpdateLog("Addon Selected : " + Addon[0]);
+								Result.takescreenshot("Addition of Addon" + Addon[0]);
 								Discounts(Addon[0], Addon[1]);
-								Result.fUpdateLog("------Discount Selected ------");
 							} else {
 								Radio_Select(Addon[0]);
-								waitforload();
-								Result.takescreenshot("Addition of Addon");
+								Result.fUpdateLog("Addon Selected : " + Addon[0]);
+								Result.takescreenshot("Addition of Addon" + Addon[0]);
 							}
 						}
 
@@ -447,7 +451,7 @@ public class Common extends Driver {
 			Expected = objTyp.replace('_', ' ');
 		int Col_Count = Browser.WebTable.getColCount(objname);
 		waitforload();
-		for (int i = 1; i < Col_Count; i++) {
+		for (int i = 1; i <= Col_Count; i++) {
 			Col = i;
 			String cellXpath = "//table//th[" + i + "]";
 			WebElement scr1 = cDriver.get().findElement(By.xpath(cellXpath));
@@ -490,13 +494,16 @@ public class Common extends Driver {
 	 * Last Modified Date 	: 29-October-2017
 	--------------------------------------------------------------------------------------------------------*/
 
-	public void Account_Search(String AccountNo) {
+	public boolean Account_Search(String AccountNo) {
+		boolean MSG = true;
 		try {
 			int Row;
 			Browser.WebLink.click("VQ_Account");
 			Link_Select("All Accounts");
 			waitforload();
+			waitforload();
 			Browser.WebButton.click("Account_Query");
+			waitforload();
 			Webtable_Value("Account #", AccountNo);
 			/*
 			 * Col = Select_Cell("Account", "Account #"); Row =
@@ -509,7 +516,9 @@ public class Common extends Driver {
 			waitforload();
 			Row = Browser.WebTable.getRowCount("Account");
 			if (Row == 2) {
-				Browser.WebButton.click("Account360");
+				// Browser.WebButton.click("Account360");
+				int Col = Select_Cell("Account", "Name");
+				Browser.WebTable.clickA("Account", 2, Col);
 				waitmoreforload();
 
 				// Comment for QA6
@@ -518,12 +527,16 @@ public class Common extends Driver {
 					waitforload();
 				}
 				Result.fUpdateLog("Account Search is done Successfully ");
-			} else
+			} else {
 				Continue.set(false);
+				Result.fUpdateLog("Account record is not available");
+				MSG = false;
+			}
 
 		} catch (Exception e) {
 			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
 		}
+		return MSG;
 	}
 
 	/*---------------------------------------------------------------------------------------------------------
@@ -532,7 +545,8 @@ public class Common extends Driver {
 	 * Designed By			: Vinodhini
 	 * Last Modified Date 	: 7-March-2017
 	--------------------------------------------------------------------------------------------------------*/
-	public void Assert_Search(String MSISDN, String Status) {
+	public boolean Assert_Search(String MSISDN, String Status) {
+		boolean MSG = true;
 		try {
 			waitforload();
 			Result.fUpdateLog("MSISDN : " + MSISDN);
@@ -562,8 +576,11 @@ public class Common extends Driver {
 			int Assert_Row_Count = Browser.WebTable.getRowCount("Assert");
 			if (Assert_Row_Count > 1)
 				Browser.WebTable.clickL("Assert", Row, Col);
-			else
+			else {
 				Continue.set(false);
+				Result.fUpdateLog("Asset record is not available");
+				MSG = false;
+			}
 			// Comment for QA6
 
 			if (Browser.WebLink.exist("Acc_Portal")) {
@@ -589,6 +606,7 @@ public class Common extends Driver {
 			e.printStackTrace();
 			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
 		}
+		return MSG;
 	}
 
 	/*---------------------------------------------------------------------------------------------------------
@@ -599,7 +617,6 @@ public class Common extends Driver {
 	--------------------------------------------------------------------------------------------------------*/
 	public void Moi_Validation() {
 		try {
-
 			waitforload();
 			TabNavigator("Contacts");
 			waitforload();
@@ -944,8 +961,11 @@ public class Common extends Driver {
 				if (LData.equalsIgnoreCase("Mobile Service Bundle"))
 					Row_Val = i;
 			}
-			int Col_S = Actual_Cell("Installed_Assert", "Status");
+			int Col_S = Actual_Cell("Installed_Assert", "Asset Description");
 			Browser.WebTable.click("Installed_Assert", Row_Val, Col_S);
+			waitforload();
+			int Col1 = Select_Cell("Installed_Assert", "Billing Profile");
+			String BP = Browser.WebTable.getCellData("Installed_Assert", 2, Col1);
 			Row_Count = Browser.WebTable.getRowCount("Installed_Assert");
 			if (Row_Count <= 3) {
 				Browser.WebButton.waittillvisible("Expand");
@@ -961,14 +981,9 @@ public class Common extends Driver {
 			} else {
 				Result.takescreenshot("");
 			}
-
-			int Col1 = Select_Cell("Installed_Assert", "Billing Profile");
-			String BP = Browser.WebTable.getCellData("Installed_Assert", 2, Col1);
 			// String BP="1-4KG38HZ";
 			waitforload();
 			Result.takescreenshot("");
-			// scroll("Profile_Tab", "WebButton");
-			// scroll("Profile_Tab", "WebButton");
 			do {
 				TabNavigator("Profiles");
 				waitforload();
@@ -978,9 +993,6 @@ public class Common extends Driver {
 				}
 
 				waitforload();
-				/*
-				 * if (Browser.WebEdit.waitTillEnabled("BP_Valid_Name")) { j = 0; break; }
-				 */
 
 			} while (!Browser.WebEdit.waitTillEnabled("BP_Valid_Name"));
 			Browser.WebEdit.waittillvisible("BP_Valid_Name");
@@ -1095,7 +1107,8 @@ public class Common extends Driver {
 		}
 	}
 
-	public void AssertSearch(String MSISDN, String Status) {
+	public boolean AssertSearch(String MSISDN, String Status) {
+		boolean MSG = true;
 		try {
 			waitforload();
 			int Row = 2, Col;
@@ -1119,8 +1132,11 @@ public class Common extends Driver {
 			int Assert_Row_Count = Browser.WebTable.getRowCount("Assert");
 			if (Assert_Row_Count > 1)
 				Browser.WebTable.clickL("Assert", Row, Col);
-			else
+			else {
 				Continue.set(false);
+				Result.fUpdateLog("Asset record is not available");
+				MSG = false;
+			}
 			// to be commented for QA6
 
 			if (Browser.WebLink.exist("Acc_Portal")) {
@@ -1136,6 +1152,7 @@ public class Common extends Driver {
 			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
 			e.printStackTrace();
 		}
+		return MSG;
 	}
 
 	/*---------------------------------------------------------------------------------------------------------
@@ -1803,6 +1820,28 @@ public class Common extends Driver {
 
 	}
 
+	public void Popup_Selection(String objname, String Name, String id, String MSISDN) {
+		try {
+			waitforload();
+			int Row_Count = Browser.WebTable.getRowCount(objname);
+			int Col = PopupHeader(objname, Name);
+			Browser.WebButton.click("PopupQuery");
+			waitforload();
+			if ((Browser.WebTable.getRowCount(objname) == 2)) {
+				Browser.WebTable.SetData(objname, 2, Col, id, MSISDN);
+				Row_Count = Browser.WebTable.getRowCount(objname);
+				if (Row_Count > 1) {
+					scroll("Popup_OK", "WebButton");
+					Browser.WebButton.click("Popup_OK");
+				} else
+					Driver.Continue.set(false);
+			} else
+				Driver.Continue.set(false);
+		} catch (Exception e) {
+			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
+		}
+	}
+
 	public void Addon_Settings(String Text) {
 		// String cellXpath = "//" + Tag + "[@title='" + Text + "']";
 		String cellXpath = "//input[@value='" + Text + "']/../..//i[@class='siebui-icon-settings']";
@@ -1820,20 +1859,22 @@ public class Common extends Driver {
 			GetData = pulldata("GetData");
 		}
 		RadioL(Disc_Addon);
+		waitforload();
 		String cellXpath = "//input[@value='" + Discount + "']";
 
 		if (cDriver.get().findElement(By.xpath(cellXpath)).isDisplayed()) {
 			WebElement scr1 = cDriver.get().findElement(By.xpath(cellXpath));
 			((RemoteWebDriver) cDriver.get()).executeScript("arguments[0].scrollIntoView(true)", scr1);
 			cDriver.get().findElement(By.xpath(cellXpath)).click();
-
-		} else
+			Result.takescreenshot("");
+		} else {
 			Continue.set(false);
-		waitforload();
+		}
 		waitforload();
 		cDriver.get().findElement(By.xpath("//div[@class='cxThread']//a[text()='" + GetData + "']")).click();
 		waitforload();
-		waitforload();
+		Result.fUpdateLog("Discount Selected : " + Discount);
+		Result.takescreenshot("Discount Selected : " + Discount);
 	}
 
 	/*---------------------------------------------------------------------------------------------------------
@@ -2555,11 +2596,10 @@ public class Common extends Driver {
 			} while (a);
 			Browser.WebEdit.Set("Promotion_name", New_PlanName);
 			waitforload();
+			waitforload();
+			Result.takescreenshot("");
 			Browser.WebButton.click("Promotion_Go");
 			waitforload();
-			//Browser.WebEdit.Set("PopupQuery_Search", New_PlanName);
-			String Path[] = Utlities.FindObject("PopupQuery_Search", "WebEdit");
-			cDriver.get().findElement(By.xpath(Path[0])).sendKeys(Keys.ENTER);
 			Result.takescreenshot("New Plane is entered in Plan Upgrade Pop Up");
 			waitforload();
 
@@ -2677,11 +2717,11 @@ public class Common extends Driver {
 	public void RadioL(String Text) {
 		Radio_Select(Text);
 		waitforload();
-		Result.fUpdateLog("Initiating Customisation");
+		waitforload();
 		cDriver.get()
 				.findElement(By.xpath("//div[@class='div-table siebui-ecfg-table-collapse']//a[text()='" + Text + "']"))
 				.click();
-		Result.takescreenshot("Customising the Addon " + Text);
+		waitforload();
 		Result.fUpdateLog("Customising the Addon " + Text);
 		waitforload();
 	}
@@ -2815,5 +2855,57 @@ public class Common extends Driver {
 			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
 			return Status;
 		}
+	}
+
+	/*---------------------------------------------------------------------------------------------------------
+		 * Method Name			: Drop_Order
+		 * Arguments			: AccountNumber
+		 * Use 					: To Drop the Pending Order Created in a specific Account 
+		 * Modified By			: Nanda Kumar Chandrasekar
+		 * Last Modified Date 	: 10-Jun-2018
+		--------------------------------------------------------------------------------------------------------*/
+	public void Drop_Order(String Reason) {
+		try {
+			waitmoreforload();
+			scroll("Order_Reason", "WebEdit");
+			Browser.WebEdit.Set("Order_Reason", Reason);
+			waitforload();
+
+			Actions a = new Actions(cDriver.get());
+			WebElement we = cDriver.get().findElement(By.xpath("//body"));
+			a.sendKeys(we, Keys.chord(Keys.CONTROL, "s")).perform();
+			scroll("Drop_Order", "WebButton");
+			Result.takescreenshot("Order cancellation is initiated with reason " + Reason);
+			Result.fUpdateLog("Order cancellation is initiated with reason " + Reason);
+			Browser.WebButton.click("Drop_Order");
+			waitforload();
+		} catch (Exception e) {
+			Continue.set(false);
+			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
+		}
+	}
+
+	public int Actual_tab_Cell_th(String objname, String objTyp) throws Exception {
+		int Col = 1, f = 0;
+		String Expected = objTyp;
+		String[] obj = objTyp.split("_");
+		if (obj.length > 1)
+			Expected = objTyp.replace('_', ' ');
+		int Col_Count = Browser.WebTable.getColCount1(objname);
+		String[] objprop = Utlities.FindObject(objname, "WebTable");
+		waitforload();
+		for (int i = 1; i < Col_Count; i++) {
+			Col = i;
+			String cellXpath = objprop[0] + "//th[" + i + "]/div";
+			WebElement scr1 = cDriver.get().findElement(By.xpath(cellXpath));
+			((RemoteWebDriver) cDriver.get()).executeScript("arguments[0].scrollIntoView(true)", scr1);
+			String celldata = cDriver.get().findElement(By.xpath(cellXpath)).getText().trim();
+			if (celldata.equalsIgnoreCase(Expected))
+				f = f + 1;
+			if (f == 1)
+				break;
+
+		}
+		return Col;
 	}
 }
