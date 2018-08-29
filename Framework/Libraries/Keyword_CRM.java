@@ -2274,7 +2274,7 @@ public class Keyword_CRM extends Driver {
 				Remove_Addon = pulldata("Remove_Addon");
 			}
 			if (CO.Assert_Search(MSISDN, "Active")) {
-				CO.Moi_Validation();
+				//CO.Moi_Validation();
 				CO.waitforload();
 				CO.Text_Select("a", GetData);
 				CO.waitforload();
@@ -3454,7 +3454,7 @@ public class Keyword_CRM extends Driver {
 			if (CO.AssertSearch(MSISDN, "Active")) {
 				CO.waitforload();
 
-				CO.Moi_Validation();
+				//CO.Moi_Validation();
 				CO.waitforload();
 				BillingProfileCreation();
 				CO.waitforload();
@@ -4420,37 +4420,8 @@ public class Keyword_CRM extends Driver {
 				Order_no = CO.Order_ID();
 				Utlities.StoreValue("Order_no", Order_no);
 				Test_OutPut += "Order_no : " + Order_no + ",";
-
-				Browser.WebButton.waittillvisible("Validate");
-				Browser.WebButton.click("Validate");
-				CO.waitmoreforload();
-				WebDriverWait wait = new WebDriverWait(cDriver.get(), 20);
-				if (!(wait.until(ExpectedConditions.alertIsPresent()) == null)) {
-					String popup = cDriver.get().switchTo().alert().getText();
-					Result.fUpdateLog(popup);
-					Continue.set(false);
-					Test_OutPut += "Unwanted Popup exists on Validate - " + popup + ",";
-					Browser.alert.accept();
-					Browser.Readystate();
-				}
-
-				CO.waitforload();
-				if (Continue.get()) {
-					Browser.WebButton.waittillvisible("Submit");
-					CO.scroll("Submit", "WebButton");
-					Browser.WebButton.click("Submit");
-					CO.waitmoreforload();
-					WebDriverWait wait1 = new WebDriverWait(cDriver.get(), 20);
-					if (!(wait1.until(ExpectedConditions.alertIsPresent()) == null)) {
-						String popup = cDriver.get().switchTo().alert().getText();
-						Result.fUpdateLog(popup);
-						Continue.set(false);
-						Test_OutPut += "Unwanted Popup exists on Submit - " + popup + ",";
-						Browser.alert.accept();
-						Browser.Readystate();
-					}
-				}
-
+				Test_OutPut += OrderSubmission().split("@@")[1];
+				
 			}
 			CO.ToWait();
 			if (Continue.get()) {
