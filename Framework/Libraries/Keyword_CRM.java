@@ -1075,7 +1075,10 @@ public class Keyword_CRM extends Driver {
 					CO.waitforload();
 					CO.RadioL("Spend Limit");
 					CO.waitforload();
+					CO.waitforload();
+					CO.waitforload();
 					Browser.WebEdit.Set("NumberReservationToken", Spendlimit);
+					CO.waitforload();
 					Result.takescreenshot("Modifying Spend Limit ");
 				}
 
@@ -2383,7 +2386,10 @@ public class Keyword_CRM extends Driver {
 							CO.waitforload();
 							CO.RadioL("Spend Limit");
 							CO.waitforload();
+							CO.waitforload();
+							CO.waitforload();
 							Browser.WebEdit.Set("NumberReservationToken", Spendlimit);
+							CO.waitforload();
 							Result.takescreenshot("Modifying Spend Limit ");
 						}
 						CO.waitforload();
@@ -2652,7 +2658,10 @@ public class Keyword_CRM extends Driver {
 						CO.waitforload();
 						CO.RadioL("Spend Limit");
 						CO.waitforload();
+						CO.waitforload();
+						CO.waitforload();
 						Browser.WebEdit.Set("NumberReservationToken", Spendlimit);
+						CO.waitforload();
 						Result.takescreenshot("Modifying Spend Limit ");
 					}
 					CO.Text_Select("button", "Verify");
@@ -3587,7 +3596,10 @@ public class Keyword_CRM extends Driver {
 								CO.waitforload();
 								CO.RadioL("Spend Limit");
 								CO.waitforload();
+								CO.waitforload();
+								CO.waitforload();
 								Browser.WebEdit.Set("NumberReservationToken", Spendlimit);
+								CO.waitforload();
 								Result.takescreenshot("Modifying Spend Limit ");
 							}
 							CO.Text_Select("button", "Verify");
@@ -11922,7 +11934,10 @@ public class Keyword_CRM extends Driver {
 						CO.waitforload();
 						CO.RadioL("Spend Limit");
 						CO.waitforload();
+						CO.waitforload();
+						CO.waitforload();
 						Browser.WebEdit.Set("NumberReservationToken", Spendlimit);
+						CO.waitforload();
 						Result.takescreenshot("Modifying Spend Limit ");
 					}
 
