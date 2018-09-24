@@ -12454,6 +12454,7 @@ public class Keyword_CRM extends Driver {
 				Browser.WebLink.click("Numbers");
 				CO.waitforload();
 				Row_Count = Browser.WebTable.getRowCount("Numbers");
+				int COl_STyp = CO.Select_Cell("Numbers", "Service Type"); 
 				int Col_cat = CO.Select_Cell("Numbers", "Category");
 				int Col_pri = CO.Select_Cell("Numbers", "Price From");
 				Col_Res = CO.Select_Cell("Numbers", "(Start) Number");
@@ -12462,6 +12463,8 @@ public class Keyword_CRM extends Driver {
 				Browser.WebLink.click("Num_Manage");
 				CO.waitforload();
 
+				Browser.WebTable.SetData("Numbers", Row, COl_STyp, "Service_Type", "Mobile");
+				
 				if (!MSISDN.equals("")) {
 
 					String Reserve = MSISDN.substring(3, MSISDN.length());
@@ -12586,7 +12589,7 @@ public class Keyword_CRM extends Driver {
 			}
 			CO.waitforload();
 			for (int i = 2; i <= Row_Count; i++) {
-				String SData = "";
+				String SData = "SIM Card"; 
 				String LData = Browser.WebTable.getCellData("Line_Items", i, Col);
 				if (SData.equalsIgnoreCase(LData))
 					Row_Val = i;
