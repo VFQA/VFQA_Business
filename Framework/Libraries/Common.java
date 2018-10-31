@@ -1872,10 +1872,10 @@ public class Common extends Driver {
 		}
 		waitforload();
 		
-		/*cellXpath = "//div[@class='cxThread']//a[text()='" + GetData + "']";
+		cellXpath = "//div[@class='cxThread']//a[text()='" + GetData + "']";
 		WebElement scr2 = cDriver.get().findElement(By.xpath(cellXpath));
 		((RemoteWebDriver) cDriver.get()).executeScript("arguments[0].scrollIntoView(true)", scr2);
-		cDriver.get().findElement(By.xpath(cellXpath)).click();*/
+		cDriver.get().findElement(By.xpath(cellXpath)).click();
 		
 		waitforload();
 		Result.fUpdateLog("Discount Selected : " + Discount);

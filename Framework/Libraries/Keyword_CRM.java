@@ -1438,6 +1438,8 @@ public class Keyword_CRM extends Driver {
 				Browser.WebButton.waittillvisible("Submit");
 				CO.scroll("Submit", "WebButton");
 				Browser.WebButton.click("Submit");
+				CO.waitmoreforload();
+				CO.waitmoreforload();
 				if (CO.isAlertExist()) {
 					Continue.set(false);
 					Msg = "Unwanted Popup exists on Submit ,";
@@ -4702,7 +4704,7 @@ public class Keyword_CRM extends Driver {
 					Result.fUpdateLog("------Discount Selected ------");
 				}
 
-				CO.waitforload();
+				CO.waitmoreforload();
 				CO.Text_Select("button", "Verify");
 				CO.isAlertExist();
 				Result.takescreenshot("Discounts Done");
