@@ -1367,7 +1367,7 @@ public class Keyword_CRM extends Driver {
 			Browser.WebButton.click("Validate");
 			// CO.isAlertExist();
 			try {
-				WebDriverWait wait = new WebDriverWait(cDriver.get(), 60);
+				WebDriverWait wait = new WebDriverWait(cDriver.get(), 30);
 				if (!(wait.until(ExpectedConditions.alertIsPresent()) == null)) {
 					String popup = cDriver.get().switchTo().alert().getText();
 					Result.fUpdateLog(popup);
@@ -1438,6 +1438,8 @@ public class Keyword_CRM extends Driver {
 				Browser.WebButton.waittillvisible("Submit");
 				CO.scroll("Submit", "WebButton");
 				Browser.WebButton.click("Submit");
+				CO.waitmoreforload();
+				CO.waitmoreforload();
 				if (CO.isAlertExist()) {
 					Continue.set(false);
 					Msg = "Unwanted Popup exists on Submit ,";
@@ -1447,7 +1449,7 @@ public class Keyword_CRM extends Driver {
 			// ----------Comment the Below code for No need to wait till order to
 			// complete---------------
 
-			if (Continue.get()) {
+			/*if (Continue.get()) {
 				Result.takescreenshot("Order Submission is Successful");
 				Col = COL_FUL_STATUS;
 				cDriver.get().navigate().refresh();
@@ -1503,7 +1505,7 @@ public class Keyword_CRM extends Driver {
 				} else {
 					Continue.set(false);
 				}
-			}
+			}*/
 
 			// ----------------------------------------------------------------------
 			CO.ToWait();
@@ -4616,10 +4618,10 @@ public class Keyword_CRM extends Driver {
 			}
 
 			if (CO.Assert_Search(MSISDN, "Active")) {
-				CO.Moi_Validation();
-				CO.waitforload();
+				//CO.Moi_Validation();
+				//CO.waitforload();
 				CO.Text_Select("a", GetData);
-				CO.waitmoreforload();
+				CO.waitforload();
 				if (Browser.WebButton.exist("Assert_Modify")) {
 
 					Inst_RowCount = Browser.WebTable.getRowCount("Acc_Installed_Assert");
@@ -4702,7 +4704,7 @@ public class Keyword_CRM extends Driver {
 					Result.fUpdateLog("------Discount Selected ------");
 				}
 
-				CO.waitforload();
+				CO.waitmoreforload();
 				CO.Text_Select("button", "Verify");
 				CO.isAlertExist();
 				Result.takescreenshot("Discounts Done");

@@ -209,7 +209,7 @@ public class Common extends Driver {
 	@SuppressWarnings("deprecation")
 	public boolean isAlertExist() {
 		try {
-			WebDriverWait wait = new WebDriverWait(cDriver.get(), 20);
+			WebDriverWait wait = new WebDriverWait(cDriver.get(), 15);
 			if (!(wait.until(ExpectedConditions.alertIsPresent()) == null)) {
 				String popup = cDriver.get().switchTo().alert().getText();
 				Result.fUpdateLog(popup);
@@ -583,11 +583,11 @@ public class Common extends Driver {
 			}
 			// Comment for QA6
 
-			if (Browser.WebLink.exist("Acc_Portal")) {
+			/*if (Browser.WebLink.exist("Acc_Portal")) {
 				waitforload();
 				Browser.WebLink.click("Acc_Portal");
 				waitforload();
-			}
+			}*/
 
 			Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
 			Result.takescreenshot("");
@@ -1859,7 +1859,7 @@ public class Common extends Driver {
 			GetData = pulldata("GetData");
 		}
 		RadioL(Disc_Addon);
-		waitforload();
+		waitmoreforload();
 		String cellXpath = "//input[@value='" + Discount + "']";
 
 		if (cDriver.get().findElement(By.xpath(cellXpath)).isDisplayed()) {
@@ -1871,7 +1871,12 @@ public class Common extends Driver {
 			Continue.set(false);
 		}
 		waitforload();
-		cDriver.get().findElement(By.xpath("//div[@class='cxThread']//a[text()='" + GetData + "']")).click();
+		
+		cellXpath = "//div[@class='cxThread']//a[text()='" + GetData + "']";
+		WebElement scr2 = cDriver.get().findElement(By.xpath(cellXpath));
+		((RemoteWebDriver) cDriver.get()).executeScript("arguments[0].scrollIntoView(true)", scr2);
+		cDriver.get().findElement(By.xpath(cellXpath)).click();
+		
 		waitforload();
 		Result.fUpdateLog("Discount Selected : " + Discount);
 		Result.takescreenshot("Discount Selected : " + Discount);
