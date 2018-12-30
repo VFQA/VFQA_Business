@@ -25,7 +25,7 @@ public class Keyword_CRM extends Driver {
 	public static int COL_FUL_STATUS;
 
 	/*---------------------------------------------------------------------------------------------------------
-	 * Method Name			: Open browser
+	 Method Name			: Open browser
 	 * Arguments			: None
 	 * Use 					: Opens a New Browser and logins to the Siebel CRM application
 	 * Designed By			: Imran Baig
