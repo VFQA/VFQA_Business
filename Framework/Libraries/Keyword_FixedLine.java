@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Keyword_FixedLine extends Driver {
 	Common CO = new Common();
@@ -313,8 +315,9 @@ public class Keyword_FixedLine extends Driver {
 			CO.Popup_Click("Line_Items", Row_Val, Col_SP);
 			CO.waitforload();
 			Reserve = MSISDN.substring(3, MSISDN.length());
-			CO.Popup_Selection("LI_ServPoint", "Service Point", getdata("Service_Point"));
-			// CO.Popup_Selection("LI_ServPoint", "Location", "Not*");
+			// CO.Popup_Selection("LI_ServPoint", "Service Point",
+			// getdata("Service_Point"));
+			CO.Popup_Selection("LI_ServPoint", "Location", "Not*");
 			Col = CO.Select_Cell("Line_Items", "Product");
 
 			Row_Count = Browser.WebTable.getRowCount("Line_Items");
@@ -358,10 +361,18 @@ public class Keyword_FixedLine extends Driver {
 
 			Browser.WebButton.waittillvisible("Validate");
 			Browser.WebButton.click("Validate");
-			if (CO.isAlertExist()) {
-				Continue.set(false);
-			}
-			CO.waitmoreforload();
+			try {
+			    WebDriverWait wait = new WebDriverWait(cDriver.get(), 60);
+			    if (!(wait.until(ExpectedConditions.alertIsPresent()) == null)) {
+			     String popup = cDriver.get().switchTo().alert().getText();
+			     Result.fUpdateLog(popup);
+			    }
+			    Browser.alert.accept();
+			    Browser.Readystate();
+			    Continue.set(false);
+			   } catch (Exception e) {
+			    Result.fUpdateLog("No Alert Exist");
+			   }
 			CO.waitforload();
 			if (Continue.get()) {
 				Browser.WebButton.waittillvisible("Submit");
@@ -620,7 +631,7 @@ public class Keyword_FixedLine extends Driver {
 				} while (!Browser.WebButton.waitTillEnabled("Date_Continue"));
 
 			} else
-				CO.InstalledAssertChange("Modify");
+				CO.InstalledAssertChange("Modify","Prod_Serv_Menu");
 
 			Result.takescreenshot("Clicking On Modify Button");
 			CO.scroll("Date_Continue", "WebButton");

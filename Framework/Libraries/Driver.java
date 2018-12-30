@@ -96,6 +96,7 @@ public class Driver {
 	public static ThreadLocal<String> Billprofile_No = new ThreadLocal<String>();
 	public static ThreadLocal<String> Acc_Number = new ThreadLocal<String>();
 	public static ThreadLocal<String> Total_DueAmt = new ThreadLocal<String>();
+	public static ThreadLocal<String> activity = new ThreadLocal<String>();
 
 	public static DateFormat For = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 	public static Calendar cal = Calendar.getInstance();
@@ -226,7 +227,7 @@ public class Driver {
 				if (DP.equalsIgnoreCase("DP") && currUCstatus.get().equalsIgnoreCase("Fail")) {
 					currUCstatus.set("Fail");
 					Continue.set(false);
-					TestOutput.set("******* Interdependant Failure Blocked******* : " + UseCaseName.get() + "<br/>");
+					TestOutput.set("******* Interdependant Failure Blocked******* : "+UseCaseName.get() + "<br/>");
 					Result.fUpdateLog("******* Interdependant Failure Blocked******");
 				} else if (DP.equalsIgnoreCase("DP") && currUCstatus.get().equalsIgnoreCase("PartiallyPass")) {
 					Continue.set(true);
@@ -238,10 +239,9 @@ public class Driver {
 					database.set((Dictionary<?, ?>) Utlities.fdatabase(UseCaseName.get()));
 				}
 
-				/*
-				 * Continue.set(true); currUCstatus.set("Pass"); database.set((Dictionary<?, ?>)
-				 * Utlities.fdatabase(UseCaseName.get()));
-				 */
+				/*Continue.set(true);
+				currUCstatus.set("Pass");
+				database.set((Dictionary<?, ?>) Utlities.fdatabase(UseCaseName.get()));*/
 
 				Result.createTCScreenshotFold();
 				ValidateDT.set((Dictionary<?, ?>) Utlities.freaddata(ValidationData.get()));
@@ -305,10 +305,10 @@ public class Driver {
 				if (currKWstatus.get().equalsIgnoreCase("Fail")) {
 					failUC = failUC + 1;
 					currUCstatus.set("Fail");
-				} else if (currKWstatus.get().equalsIgnoreCase("PartiallyPass")) {
+				}else if (currKWstatus.get().equalsIgnoreCase("PartiallyPass")) {
 					partialypassUC = partialypassUC + 1;
 					currUCstatus.set("PartiallyPass");
-				} else {
+				}else {
 					passUC = passUC + 1;
 					currUCstatus.set("Pass");
 				}
@@ -392,12 +392,12 @@ public class Driver {
 
 	public static void killexeTask() {
 		try {
-			// Runtime.getRuntime().exec("taskkill /im chrome.exe /f");
-			Runtime.getRuntime().exec("taskkill /im chromedriver.exe /f");
-			// Runtime.getRuntime().exec("taskkill /im conhost.exe /f");
+			//Runtime.getRuntime().exec("taskkill /im chrome.exe /f");
+			//Runtime.getRuntime().exec("taskkill /im chromedriver.exe /f");
+			//Runtime.getRuntime().exec("taskkill /im conhost.exe /f");
 			Runtime.getRuntime().exec("taskkill /im geckodriver.exe /f");
 			Runtime.getRuntime().exec("taskkill /im IEDriverServer.exe /f");
-			// Runtime.getRuntime().exec("taskkill /im iexplore.exe /f");
+			//Runtime.getRuntime().exec("taskkill /im iexplore.exe /f");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
