@@ -1250,27 +1250,25 @@ public class Common extends Driver {
 			Col = Select_Cell("Assert", "Product");
 			// Browser.WebButton.waitTillEnabled("Assert_Go");
 			Browser.WebButton.click("Assert_Go");
-			// waitforload();
+			waitforload();
 			Result.takescreenshot("Account Status : " + Status);
-			Col = Select_Cell("Assert", "Account");
 			int Assert_Row_Count = Browser.WebTable.getRowCount("Assert");
-			if (Assert_Row_Count > 1)
+			if (Assert_Row_Count > 1) {
+				Col = Select_Cell("Assert", "Account");
 				Browser.WebTable.clickL("Assert", Row, Col);
-			else {
+				/*
+				 * if (Browser.WebLink.exist("Acc_Portal")) { waitforload();
+				 * Browser.WebLink.click("Acc_Portal"); waitforload(); }
+				 */
+				ConditionalWait("Inst_Assert_ShowMore", "WebLink");
+				// Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
+				Result.fUpdateLog("Installed Assert");
+				Result.takescreenshot("");
+			} else {
 				Continue.set(false);
 				Result.fUpdateLog("Asset record is not available");
 				MSG = false;
 			}
-			// to be commented for QA6
-
-			/*
-			 * if (Browser.WebLink.exist("Acc_Portal")) { waitforload();
-			 * Browser.WebLink.click("Acc_Portal"); waitforload(); }
-			 */
-			ConditionalWait("Inst_Assert_ShowMore", "WebLink");
-			// Browser.WebLink.waittillvisible("Inst_Assert_ShowMore");
-			Result.fUpdateLog("Installed Assert");
-
 		} catch (Exception e) {
 			Result.fUpdateLog("Exception occurred *** " + ExceptionUtils.getStackTrace(e));
 			e.printStackTrace();

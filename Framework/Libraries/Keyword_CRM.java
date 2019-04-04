@@ -1392,6 +1392,12 @@ public class Keyword_CRM extends Driver {
 				// Browser.WebEdit.Set("Ent_CreditLimit", "100");
 			}
 
+			if (!(getdata("Opportunity_ID").equals(""))) {
+				CO.scroll("Opportunity_ID", "WebEdit");
+				Browser.WebEdit.click("Opportunity_ID");
+				Browser.WebEdit.Set("Opportunity_ID", getdata("Opportunity_ID"));
+			}
+
 			// To get fulfillment status coloumn
 			CO.scroll("Ful_Status", "WebButton");
 			Col = CO.Select_Cell("Line_Items", "Fulfillment Status");
@@ -4439,7 +4445,8 @@ public class Keyword_CRM extends Driver {
 	public String Disconnection() {
 
 		String Test_OutPut = "", Status = "";
-		String MSISDN, Order_no, Order_Reason, GetData;
+		String MSISDN, Order_no, Order_Reason, Comments, GetData;
+		boolean Flag = false;
 		int Col, Col_P;
 		Result.fUpdateLog("------Disconnect Event Details------");
 		try {
@@ -4454,22 +4461,43 @@ public class Keyword_CRM extends Driver {
 			} else {
 				Order_Reason = pulldata("Order_Reason");
 			}
+
+			if (!(getdata("Comments").equals(""))) {
+				Comments = getdata("Comments");
+			} else {
+				Comments = pulldata("Comments");
+			}
+
 			if (!(getdata("GetData").equals(""))) {
 				GetData = getdata("GetData");
 			} else {
 				GetData = pulldata("GetData");
 			}
-			if (CO.Assert_Search(MSISDN, "Active")) {
+			// Suspended
+			if (CO.AssertSearch(MSISDN, "Suspended")) {
 				// CO.waitforload();
 				int Col_S, Row_Count;
 				String LData;
 				Browser.WebEdit.waittillvisible("Primary_MSISDN1");
 				Row_Count = Browser.WebTable.getRowCount("Installed_Assert");
 				String Primary_MSISDN = Browser.WebEdit.gettext("Primary_MSISDN1");
-				if (Primary_MSISDN.equalsIgnoreCase(MSISDN)) {
-					Test_OutPut += "Primary_MSISDN : " + Primary_MSISDN + ",";
+				if (Row_Count > 3) {
+					if (Primary_MSISDN.equalsIgnoreCase(MSISDN)) {
+						Test_OutPut += "Primary_MSISDN cannot be disconnect : " + Primary_MSISDN + ",";
+					} else {
+						CO.InstalledAssertChange("New Query                   [Alt+Q]", "Installed_Assert_Menu");
+						CO.waitforload();
+						Col = CO.Select_Cell("Installed_Assert", "Service ID");
+						Browser.WebTable.SetDataE("Installed_Assert", 2, Col, "Serial_Number", MSISDN);
+						Browser.WebButton.click("InstalledAssert_Go");
+						Result.takescreenshot("");
+						Flag = true;
+					}
 				} else {
+					Flag = true;
+				}
 
+				if (Flag) {
 					Col = CO.Actual_Cell("Installed_Assert", "Product");
 					Col_S = CO.Actual_Cell("Installed_Assert", "Service ID");
 					Row_Count = Browser.WebTable.getRowCount("Installed_Assert");
@@ -4507,7 +4535,8 @@ public class Keyword_CRM extends Driver {
 					// CO.InstalledAssertChange("Disconnect");
 					// CO.waitforload();
 					CO.Webtable_Value("Order Reason", Order_Reason);
-
+					CO.waitforload();
+					Browser.WebEdit.Set("Comments", Comments);
 					Row_Count = Browser.WebTable.getRowCount("Line_Items");
 					Col = CO.Select_Cell("Line_Items", "Product");
 					Col_P = CO.Actual_Cell("Line_Items", "Action");
@@ -4524,13 +4553,16 @@ public class Keyword_CRM extends Driver {
 						}
 
 					}
-					Test_OutPut += OrderSubmission().split("@@")[1];
+
 					Order_no = CO.Order_ID();
 					Utlities.StoreValue("Order_no", Order_no);
 					Test_OutPut += "Order_no : " + Order_no + ",";
+
+					Test_OutPut += OrderSubmission().split("@@")[1];
+
 					// CO.waitforload();
 
-					CO.AssertSearch(MSISDN, "Inactive");
+					// CO.AssertSearch(MSISDN, "Inactive");
 					// CO.waitforload();
 					Result.takescreenshot("");
 					CO.ToWait();

@@ -11,12 +11,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/apache-commons-net.jar"/>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/bcprov-jdk15on-1.59.jar"/>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/fillo-1.18.jar"/>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/java-client-6.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/jsch-0.1.54.jar"/>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/ojdbc8.jar"/>
-	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Work_Giri/VFQA-Parallel/SeleniumJars/selenium-server-standalone-3.14.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/apache-commons-net.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/bcprov-jdk15on-1.59.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/fillo-1.18.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/java-client-6.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/jsch-0.1.54.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/ojdbc8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/haleemimranb/OneDrive - Maveric Systems Limited/Desktop/Imran/Workspace_Business/VFQA-Parallel/SeleniumJars/selenium-server-standalone-3.14.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
