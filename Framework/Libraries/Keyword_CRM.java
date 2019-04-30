@@ -1487,6 +1487,8 @@ public class Keyword_CRM extends Driver {
 				}
 			}
 
+			// Commit the below code for not to wait for order complete
+			/*
 			if (Continue.get()) {
 				Result.takescreenshot("Order Submission is Successful");
 				Col = COL_FUL_STATUS;
@@ -1556,7 +1558,7 @@ public class Keyword_CRM extends Driver {
 					Continue.set(false);
 				}
 			}
-
+			*/
 			CO.ToWait();
 			if (Continue.get()) {
 				Result.fUpdateLog("Order Status : " + OS_Status);
